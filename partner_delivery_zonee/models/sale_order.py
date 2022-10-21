@@ -1,4 +1,4 @@
-# Copyright 2018 Tecnativa - Sergio Teruel
+# Copyright 2022 - Manuel Calero - Xtendoo
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
@@ -10,9 +10,11 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def _get_delivery_zone_id(self):
-        if 'partner_delivery_zone_id' in request.session:
-            return request.session['partner_delivery_zone_id']
-        return 0
+        if not request:
+            return 0
+        if not 'partner_delivery_zone_id' in request.session:
+            return 0
+        return request.session['partner_delivery_zone_id']
 
     def _get_next_partner(self):
         zone_id = self._get_delivery_zone_id()
