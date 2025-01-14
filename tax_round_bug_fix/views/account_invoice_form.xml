@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="round_bug_fix">
+            <field name="name">reound.bug.fix</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_line_ids']/tree/field[@name='amount_total']" position="before">
+                    <field name="real_amount_total" string="Importe total real"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
