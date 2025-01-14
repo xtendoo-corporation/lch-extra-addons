@@ -2,9 +2,9 @@
 
 {
     'name': 'Tax round bug fix',
-    'summary': """ax round bug fix""",
+    'summary': """Tax round bug fix""",
     'version': '12.0.1.0.0',
-    'description': """ax round bug fix""",
+    'description': """Tax round bug fix""",
     'author': 'Dani-Xtendoo',
     'company': 'Xtendoo',
     'website': 'http://www.xtendoo.com',
