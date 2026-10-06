@@ -123,16 +123,16 @@
                             <div>
                                 <t t-foreach="o.reconciled_invoice_ids" t-as="inv">
                                     <div style="width:27.5%;float:left;">
-                                        <t t-if="inv.date_invoice">
-                                            <span t-field="inv.date_invoice"/>
+                                        <t t-if="inv.invoice_date">
+                                            <span t-field="inv.invoice_date"/>
                                         </t>
                                         <t t-else="">
                                             <span style="color:white;">aaaa</span>
                                         </t>
                                     </div>
                                     <div style="width:27.5%;float:left;">
-                                        <t t-if="inv.number">
-                                            <span t-field="inv.number"/>
+                                        <t t-if="inv.name">
+                                            <span t-field="inv.name"/>
                                         </t>
                                         <t t-else="">
                                             <span style="color:white;">aaaa</span>
@@ -148,15 +148,15 @@
                                     </div>
                                     <div style="width:15%;float:left;text-align:right;">        
                                         <t t-if="inv.amount_total">
-                                            <span t-esc="inv.amount_total - inv.residual" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
+                                            <span t-esc="inv.amount_total - inv.amount_residual" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
                                         </t>
                                         <t t-else="">
                                             <span style="color:white;">aaaa</span>
                                         </t>
                                     </div>
                                     <div style="width:15%;float:left;text-align:right;">
-                                        <t t-if="inv.residual">
-                                            <span t-field="inv.residual"/>
+                                        <t t-if="inv.amount_residual">
+                                            <span t-field="inv.amount_residual"/>
                                         </t>
                                         <t t-else="">
                                             <span>0.00</span>

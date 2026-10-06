@@ -7,7 +7,7 @@
 
        <report id="report_invoice_2_discounts"
                 string="Factura 2 Descuentos"
-                model="account.invoice"
+                model="account.move"
                 report_type="qweb-pdf"
                 name="document_format_ch.report_invoice__2_discounts"
                 print_report_name="(object._get_report_base_filename())"
@@ -32,38 +32,38 @@
 
                 <div style="width:50%; float:left;margin-top:35px;">
                     <ul class="list-unstyled">
-                        <li t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">
+                        <li t-if="o.type == 'out_invoice' and o.state == 'posted'">
                             <b>Factura</b>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </li>
                         <li t-if="o.type == 'out_invoice' and o.state == 'draft'">
                             <b>Borrador de factura</b>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </li>
                         <li t-if="o.type == 'out_invoice' and o.state == 'cancel'">
                             <b>Factura cancelada</b>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </li>
                         <li t-if="o.type == 'out_refund'">
                             <b>Factura Rectificativa</b>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </li>
                         <li t-if="o.type == 'in_refund'">
                             <b>Vendor Credit Note</b>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </li>
                         <li t-if="o.type == 'in_invoice'">
                             <b>Vendor Bill</b>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </li>
-                        <li t-if="o.date_invoice">
+                        <li t-if="o.invoice_date">
                             <b>Fecha:</b>
-                            <span t-esc="o.date_invoice.strftime('%d/%m/%Y')"/>
+                            <span t-esc="o.invoice_date.strftime('%d/%m/%Y')"/>
                         </li>
 
-                        <li t-if="o.origin">
+                        <li t-if="o.invoice_origin">
                             <b>Origen:</b>
-                            <span t-field="o.origin"/>
+                            <span t-field="o.invoice_origin"/>
                         </li>
 
                         <li t-if="o.partner_id.ref">
@@ -73,7 +73,7 @@
 
                         <li t-if="o.type == 'out_refund'">
                             <b>Motivo:</b>
-                            <span t-field="o.name"/>
+                            <span t-field="o.ref"/>
                         </li>
 
                     </ul>
@@ -231,10 +231,10 @@
                                 <!-- IVA -->
 
                                 <div class="text-right" style="float:left;width:7%;">
-                                    <t t-set="iva" t-value="line.invoice_line_tax_ids.amount"></t>
+                                    <t t-set="iva" t-value="line.tax_ids.amount"></t>
                                     <span t-esc="int(iva)"/>
                                     <span t-if="line.price_tax > 0">%</span>
-                                    <!--<span t-esc="', '.join(map(lambda x: str(x.amount), line.invoice_line_tax_ids))"/>-->
+                                    <!--<span t-esc="', '.join(map(lambda x: str(x.amount), line.tax_ids))"/>-->
                                 </div>
 
                                 <!-- Fin IVA -->
@@ -287,7 +287,7 @@
                         <!-- Impuestos -->
 
                         <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                            <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                            <t t-if="len(o.amount_by_group) == 1 and o.amount_untaxed == amount_by_group[2]">
                                 <div style="width:40%;float:left;clear:both;">
                                     <span t-esc="amount_by_group[0]"/>
                                 </div>
@@ -350,7 +350,7 @@
                                     </tr>
                                     <t t-foreach="o.amount_by_group" t-as="amount_by_group">
                                         <tr style="">
-                                            <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                            <t t-if="len(o.amount_by_group) == 1 and o.amount_untaxed == amount_by_group[2]">
                                                 <td>
                                                     <span t-esc="amount_by_group[0]"/>
                                                 </td>
@@ -393,10 +393,10 @@
                        
                     </div>
 
-                    <p t-if="o.reference" style="display:none;">
+                    <p t-if="o.invoice_payment_ref" style="display:none;">
                         Please use the following communication for your payment :
                         <b>
-                            <span t-field="o.reference"/>
+                            <span t-field="o.invoice_payment_ref"/>
                         </b>
                     </p>
 

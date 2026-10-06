@@ -22,7 +22,7 @@
 
        <report id="report_invoice_bluetooh"
                 string="Factura Bluetooth"
-                model="account.invoice"
+                model="account.move"
                 report_type="qweb-pdf"
                 name="document_format_ch.report_invoice_bluetooth"
                 print_report_name="(object._get_report_base_filename())"
@@ -137,7 +137,7 @@
                    <div style="width:60%; float:left;font-weight:bolder; margin-top:25px;font-size:0.9em;">
 
                        <div>
-                            <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Factura</span>
+                            <span t-if="o.type == 'out_invoice' and o.state == 'posted'">Factura</span>
                             <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Factura Borrador</span>
                             <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Factura Cancelada</span>
                             <span t-if="o.type == 'out_refund'">Factura Rectificativa</span>
@@ -146,7 +146,7 @@
                        </div>
 
                        <div>
-                            <span t-field="o.number"/>
+                            <span t-field="o.name"/>
                         </div>
 
                    </div>
@@ -157,14 +157,14 @@
 
                    <div style="width:40%; float:left;font-weight:bolder; margin-top:25px;text-align:center;font-size:0.9em;color:black;">
 
-                       <div class="col-auto mw-100 mb-2" t-if="o.date_invoice" name="invoice_date">
+                       <div class="col-auto mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
 
                            <div style="width:100%">
                                <span style="color:black;">Fecha:</span>
                            </div>
 
                             <div style="width:100%">
-                                <span class="m-0" t-field="o.date_invoice"/>
+                                <span class="m-0" t-field="o.invoice_date"/>
                             </div>
 
                        </div>
@@ -190,13 +190,13 @@
 
                    <div style="clear:both;width:60%;font-size:0.9em;float:left;font-weight:bolder;">
 
-                       <div name="reference" class="col-auto mw-100 mb-2" t-if="o.reference">
+                       <div name="reference" class="col-auto mw-100 mb-2" t-if="o.invoice_payment_ref">
                            <div style="width:100%">
                                <span style="color:black;">Referencia:</span>
                            </div>
 
                            <div style="width:100%">
-                               <span class="m-0" t-field="o.reference"/>
+                               <span class="m-0" t-field="o.invoice_payment_ref"/>
                            </div>
 
                        </div>
@@ -206,12 +206,12 @@
 
                    <div style="width:40%;font-size:0.9em;float:left;font-weight:bolder;text-align:center;margin-bottom:10px;">
 
-                       <div class="col-auto mw-100 mb-2" t-if="o.origin" name="origin">
+                       <div class="col-auto mw-100 mb-2" t-if="o.invoice_origin" name="origin">
                            <div style="width:100%">
                                <span style="color:black;">Origen:</span>
                            </div>
                            <div style="width:100%">
-                               <span class="m-0" t-field="o.origin"/>
+                               <span class="m-0" t-field="o.invoice_origin"/>
                            </div>
 
                        </div>
@@ -333,7 +333,7 @@
 
                                     <t t-foreach="o.amount_by_group" t-as="amount_by_group">
                                         <tr style="">
-                                            <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                            <t t-if="len(o.amount_by_group) == 1 and o.amount_untaxed == amount_by_group[2]">
                                                 <td style="text-align:left!important;">
                                                     <span t-esc="amount_by_group[0]"/>
                                                 </td>
@@ -375,8 +375,8 @@
 
                    <!-- Fin totales -->
 
-                    <p t-if="o.comment" name="comment">
-                        <span t-field="o.comment"/>
+                    <p t-if="o.narration" name="comment">
+                        <span t-field="o.narration"/>
                     </p>
 
 

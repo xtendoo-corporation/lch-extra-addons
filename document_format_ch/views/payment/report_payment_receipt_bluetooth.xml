@@ -221,11 +221,11 @@
                             <tr>
 
                                 <td style="border-right:2px dotted black;border-top:2px dotted black;width:21%;">
-                                    <span t-field="inv.date_invoice"/>
+                                    <span t-field="inv.invoice_date"/>
                                 </td>
 
                                 <td style="border-right:2px dotted black;border-top:2px dotted black;width:25%;">
-                                    <span t-field="inv.number"/>
+                                    <span t-field="inv.name"/>
                                 </td>
 
                                 <td class="text-right" style="border-right:2px dotted black;border-top:2px dotted black">
@@ -233,11 +233,11 @@
                                 </td>
 
                                 <td class="text-right" style="border-right:2px dotted black;border-top:2px dotted black">
-                                    <span t-esc="inv.amount_total - inv.residual" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
+                                    <span t-esc="inv.amount_total - inv.amount_residual" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
                                 </td>
 
                                 <td class="text-right" style="border-top:2px dotted black;">
-                                    <span t-field="inv.residual"/>
+                                    <span t-field="inv.amount_residual"/>
                                 </td>
 
                             </tr>
