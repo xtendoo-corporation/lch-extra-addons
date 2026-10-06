@@ -14,5 +14,5 @@ class Partner(models.Model):
         compute='_compute_product_pricelist',
         inverse="_inverse_product_pricelist",
         company_dependent=False,
-        track_visibility="always",
+        tracking=True,
         help="This pricelist will be used, instead of the default one, for sales to the current partner")

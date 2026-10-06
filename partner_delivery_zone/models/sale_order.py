@@ -37,7 +37,6 @@ class SaleOrder(models.Model):
             res['partner_id'] = partner_id.id
         return res
 
-    @api.multi
     def button_next_partner(self):
         if not self.delivery_zone_id:
             return

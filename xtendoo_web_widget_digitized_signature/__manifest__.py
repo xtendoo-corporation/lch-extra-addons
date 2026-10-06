@@ -7,7 +7,7 @@
 
 {
     'name': 'Xtendoo Web Widget Digitized Signature',
-    'version': '13.0.1.0.0',
+    'version': "13.0.1.0.0",
     'author': 'Xtendoo, '
               'Serpent Consulting Services Pvt. Ltd., '
               'Agile Business Group, '

@@ -29,7 +29,6 @@ class AccountInvoice(models.Model):
                 raise ValidationError(("No tiene permisos para crear facturas directas"))
         return super(AccountInvoice, self).default_get(default_fields)
 
-    @api.multi
     def action_invoice_cancel(self):
         if not self.env.user.administration:
             raise ValidationError(("No tiene permisos para cancelar facturas"))

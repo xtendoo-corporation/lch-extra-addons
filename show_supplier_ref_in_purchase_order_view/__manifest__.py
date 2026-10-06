@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 ###################################################################################
 #
@@ -24,7 +23,7 @@
 {
     'name': 'show_supplier_ref_in_purchase_order_view',
     'summary': """Show the supplier reference in the purchase order view""",
-    'version': '12.0.1.0.0',
+    'version': "13.0.1.0.0",
     'description': """Show the supplier reference in the purchase order view""",
     'author': 'DDL',
     'company': 'Xtendoo',

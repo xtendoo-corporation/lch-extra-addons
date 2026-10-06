@@ -5,7 +5,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-import odoo.addons.decimal_precision as dp
 
 
 class SaleOrderLine(models.Model):
@@ -50,12 +49,12 @@ class SaleOrderLine(models.Model):
 
     discount2 = fields.Float(
         'Disc. 2 (%)',
-        digits=dp.get_precision('Discount'),
+        digits='Discount',
         default=0.0,
     )
     discount3 = fields.Float(
         'Disc. 3 (%)',
-        digits=dp.get_precision('Discount'),
+        digits='Discount',
         default=0.0,
     )
     discounting_type = fields.Selection(
@@ -101,7 +100,6 @@ class SaleOrderLine(models.Model):
         super(SaleOrderLine, self)._get_price_reduce()
         self.triple_discount_postprocess(prev_values)
 
-    @api.multi
     def triple_discount_preprocess(self):
         """Save the values of the discounts in a dictionary,
         to be restored in postprocess.

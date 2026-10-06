@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -10,7 +9,6 @@ _logger = logging.getLogger(__name__)
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    @api.multi
     def action_purchase_order_confirm_and_delivery(self):
         self.button_confirm()
 
@@ -21,7 +19,6 @@ class PurchaseOrder(models.Model):
 
             picking.button_validate()
 
-    @api.multi
     def action_purchase_order_confirm_and_invoiced(self):
         self.action_purchase_order_confirm_and_delivery()
 

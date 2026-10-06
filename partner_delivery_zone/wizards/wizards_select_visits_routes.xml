@@ -36,7 +36,6 @@
     <record id="action_report_partner_visit_day" model="ir.actions.act_window">
         <field name="name">Select Delivery Zone</field>
         <field name="res_model">partner.delivery.zone.wizard</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

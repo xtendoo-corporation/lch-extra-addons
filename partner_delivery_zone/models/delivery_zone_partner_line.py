@@ -21,7 +21,6 @@ class DeliveryZonePartnerLine(models.Model):
         required=True,
     )
 
-    @api.multi
     def _get_next_sequence(self):
         return self.env['ir.sequence'].next_by_code('res.partner.delivery.zone')
 

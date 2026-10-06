@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016, 2019 Openworx
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
     "name": "Openworx Material Backend Theme V12",
     "summary": "Openworx Material Backend Theme V12	",
-    "version": "12.0.0.1",
+    "version": "13.0.1.0.0",
     "category": "Theme/Backend",
     "website": "http://www.openworx.nl",
 	"description": """

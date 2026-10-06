@@ -49,7 +49,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
              ('date_order', '<=', datetime.combine(date, datetime.max.time()))]
         )
 
-    @api.multi
     def get_pickings_delivery_zone_date(self, delivery_zone_id, date):
         return self.env['stock.picking'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
@@ -58,7 +57,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
              ('scheduled_date', '<=', datetime.combine(date, datetime.max.time()))]
         )
 
-    @api.multi
     def get_invoices_delivery_zone_date(self, delivery_zone_id, date):
         return self.env['account.invoice'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
@@ -67,7 +65,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
              ('date_invoice', '=', date)]
         )
 
-    @api.multi
     def get_payments_delivery_zone_date(self, delivery_zone_id, date):
         payment_ids = self.get_payments_delivery_zone_date_ids(delivery_zone_id, date)
         return self.env['account.payment'].search(
@@ -77,7 +74,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
              ('id', 'not in', payment_ids)]
         )
 
-    @api.multi
     def get_payments_delivery_zone_date_ids(self, delivery_zone_id, date):
         payments = []
         invoices = self.env['account.invoice'].search(
@@ -90,7 +86,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
                 payments.append(payment.id)
         return payments
 
-    @api.multi
     def get_grouped_payments_delivery_zone_date(self, delivery_zone_id, date):
         return self.env['account.payment'].read_group(
             [('delivery_zone_id', '=', delivery_zone_id),
@@ -101,7 +96,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
              ['journal_id'],
         )
 
-    @api.multi
     def get_grouped_refund_payments_delivery_zone_date(self, delivery_zone_id, date):
         return self.env['account.payment'].read_group(
             [('delivery_zone_id', '=', delivery_zone_id),
@@ -112,7 +106,6 @@ class ReportSaleDeliveryZone(models.AbstractModel):
             ['journal_id'],
         )
 
-    @api.multi
     def get_payment_where_id(self, payment_id):
         return self.env['account.payment'].search(
             [('id', '=', payment_id)]

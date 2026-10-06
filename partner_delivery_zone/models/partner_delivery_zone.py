@@ -34,12 +34,10 @@ class PartnerDeliveryZone(models.Model):
         auto_join=True,
     )
 
-    @api.multi
     def set_values(self):
         super(PartnerDeliveryZone, self).set_values()
         self.env['ir.config_parameter'].sudo().set_param("partner.delivery.zone", self.code or '')
 
-    @api.multi
     def get_quotations_today(self):
         return self.env['sale.order'].search(
             [('delivery_zone_id', '=', self.id),
@@ -48,7 +46,6 @@ class PartnerDeliveryZone(models.Model):
              ('date_order', '<=', datetime.combine(self.date, datetime.max.time()))]
         )
 
-    @api.multi
     def get_orders_today(self):
         return self.env['sale.order'].search(
             [('delivery_zone_id', '=', self.id),
@@ -57,7 +54,6 @@ class PartnerDeliveryZone(models.Model):
              ('date_order', '<=', datetime.combine(self.date, datetime.max.time()))]
         )
 
-    @api.multi
     def get_pickings_today(self):
         return self.env['stock.picking'].search(
             [('delivery_zone_id', '=', self.id),
@@ -65,7 +61,6 @@ class PartnerDeliveryZone(models.Model):
              ('scheduled_date', '<=', datetime.combine(self.date, datetime.max.time()))]
         )
 
-    @api.multi
     def get_invoices_today(self):
         return self.env['account.invoice'].search(
             [('delivery_zone_id', '=', self.id),
@@ -73,7 +68,6 @@ class PartnerDeliveryZone(models.Model):
              ('date_invoice', '=', self.date)]
         )
 
-    @api.multi
     def get_payments_today(self):
         return self.env['account.payment'].search(
             [('delivery_zone_id', '=', self.id),

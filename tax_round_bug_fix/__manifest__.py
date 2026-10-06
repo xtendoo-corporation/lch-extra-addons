@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 
 {
     'name': 'Tax round bug fix',
     'summary': """Tax round bug fix""",
-    'version': '12.0.1.0.0',
+    'version': "13.0.1.0.0",
     'description': """Tax round bug fix""",
     'author': 'Dani-Xtendoo',
     'company': 'Xtendoo',

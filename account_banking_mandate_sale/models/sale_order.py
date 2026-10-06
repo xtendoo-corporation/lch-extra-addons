@@ -21,7 +21,6 @@ class SaleOrder(models.Model):
         readonly=True,
     )
 
-    @api.multi
     def _prepare_invoice(self):
         """Copy mandate from sale order to invoice"""
         vals = super(SaleOrder, self)._prepare_invoice()

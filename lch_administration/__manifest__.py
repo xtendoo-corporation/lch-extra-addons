@@ -1,7 +1,7 @@
 {
     'name': 'LCH Administrator',
     'summary': """Administration settings for La Casa del Hostelero""",
-    'version': '12.0.1.0.0', 
+    'version': "13.0.1.0.0", 
     'author': 'Daniel Domínguez',
     'company': 'Xtendoo',
     'website': 'https://xtendoo.es/',

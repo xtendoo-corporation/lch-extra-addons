@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 
 {
     'name': 'document_format_ch',
     'summary': """Formatos de documentos CH""",
-    'version': '12.0.1.0.0',
+    'version': "13.0.1.0.0",
     'description': """Formatos de documentos CH""",
     'author': 'Dani-Xtendoo',
     'company': 'Xtendoo',

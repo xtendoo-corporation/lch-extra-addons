@@ -3,7 +3,7 @@
 
 {
     'name': 'Account Banking Mandate Sale',
-    'version': '12.0.1.0.1',
+    'version': "13.0.1.0.0",
     'category': 'Banking addons',
     'license': 'AGPL-3',
     'summary': "Adds mandates on sale orders",

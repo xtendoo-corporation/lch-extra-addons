@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 ###################################################################################
 #
@@ -24,7 +23,7 @@
 {
     'name': 'Res Partner Commercial Name',
     'summary': """Add the business name field in res_partner""",
-    'version': '12.0.1.0.0',
+    'version': "13.0.1.0.0",
     'description': """Add the business name field in res_partner""",
     'author': 'DDL',
     'company': 'Xtendoo',

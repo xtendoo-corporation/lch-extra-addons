@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Print Journal Entries Report in Odoo',
-    'version': '12.0.0.0',
+    'version': "13.0.1.0.0",
     'category': 'Account',
     'summary': 'Allow to print pdf report of Journal Entries.',
     'description': """

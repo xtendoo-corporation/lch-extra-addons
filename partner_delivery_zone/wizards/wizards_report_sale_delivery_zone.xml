@@ -34,14 +34,13 @@
     <record id="action_report_sale_delivery_zone_visit_day" model="ir.actions.act_window">
         <field name="name">Report Sales Delivery Zones</field>
         <field name="res_model">wizard.report.sale.delivery.zone</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
     <act_window id="partner_delivery_zone_wizard_action"
                 name="Report Date"
-                src_model="partner.delivery.zone"
+                binding_model="partner.delivery.zone"
                 res_model="wizard.report.sale.delivery.zone"
                 view_type="form"
                 view_mode="form"

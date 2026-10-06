@@ -9,7 +9,6 @@ import logging
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
-    @api.one
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
         'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id', 'invoice_id.company_id',
         'invoice_id.date_invoice', 'invoice_id.date','discount2', 'discount3')

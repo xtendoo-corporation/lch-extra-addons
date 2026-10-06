@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from odoo import api, exceptions, fields, models, _
 from odoo.http import request

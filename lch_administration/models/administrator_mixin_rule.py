@@ -11,7 +11,6 @@ class AdministratorMixinRule(models.Model):
         string="isAdmin",
         default=lambda self: self._get_default_admin()
     )
-    @api.one
     def _is_admin(self):
         self.is_admin=self.env["res.users"].has_group(
                 "lch_administration.administration_group"
@@ -30,7 +29,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_tax()
     )
 
-    @api.one
     def _can_edit_tax(self):
         self.can_edit_tax = self.env["res.users"].has_group(
                 "lch_administration.edit_tax"
@@ -48,7 +46,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_discounts()
     )
 
-    @api.one
     def _can_edit_discounts(self):
         self.can_edit_discounts = self.env["res.users"].has_group(
                 "lch_administration.edit_discounts"
@@ -66,7 +63,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_price()
     )
 
-    @api.one
     def _can_edit_price(self):
         self.can_edit_price = self.env["res.users"].has_group(
                 "lch_administration.edit_sale_price"
@@ -84,7 +80,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_account()
     )
 
-    @api.one
     def _can_edit_account(self):
         self.can_edit_account = self.env["res.users"].has_group(
                 "lch_administration.edit_account"
@@ -102,7 +97,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_quantity()
     )
 
-    @api.one
     def _can_edit_quantity(self):
         self.can_edit_quantity = self.env["res.users"].has_group(
                 "lch_administration.edit_quantity"
@@ -120,7 +114,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_product_desc()
     )
 
-    @api.one
     def _can_edit_product_desc(self):
         self.can_edit_product_desc = self.env["res.users"].has_group(
                 "lch_administration.edit_product_desc"
@@ -138,7 +131,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_edit_product_desc()
     )
 
-    @api.one
     def _can_edit_product_id(self):
         self.can_edit_product_id = self.env["res.users"].has_group(
                 "lch_administration.edit_product_id"
@@ -155,7 +147,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_cancel_invoice()
     )
 
-    @api.one
     def _can_cancel_invoice(self):
         self.can_cancel_invoice = self.env["res.users"].has_group(
                 "lch_administration.cancel_invoice"
@@ -172,7 +163,6 @@ class AdministratorMixinRule(models.Model):
         default=lambda self: self._get_can_create_refund_invoice()
     )
 
-    @api.one
     def _can_create_refund_invoice(self):
         self.can_create_refund_invoice = self.env["res.users"].has_group(
                 "lch_administration.create_refund_invoice"

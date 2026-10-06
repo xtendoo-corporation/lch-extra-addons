@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 ###################################################################################
 #
@@ -24,7 +23,7 @@
 {
     'name': 'Purchase Order Picking All Done',
     'summary': """Purchase Order Picking All Done""",
-    'version': '12.0.1.0.0',
+    'version': "13.0.1.0.0",
     'description': """Purchase Order Picking All Done""",
     'author': 'Manuel Calero Solís',
     'company': 'Xtendoo',
