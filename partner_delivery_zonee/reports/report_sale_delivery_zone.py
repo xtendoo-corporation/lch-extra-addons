@@ -25,6 +25,8 @@ class ReportSaleDeliveryZone(models.AbstractModel):
             'get_pickings_delivery_zone_date': self.get_pickings_delivery_zone_date,
             'get_invoices_delivery_zone_date': self.get_invoices_delivery_zone_date,
             'get_payments_delivery_zone_date': self.get_payments_delivery_zone_date,
+            'get_credit_notes_delivery_zone_date': self.get_credit_notes_delivery_zone_date,
+            'get_payments_refund_delivery_zone_date': self.get_payments_refund_delivery_zone_date,
         }
 
     @api.model
@@ -49,7 +51,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
     def get_pickings_delivery_zone_date(self, delivery_zone_id, date):
         return self.env['stock.picking'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
-             ('picking_type_code', '=', 'outgoing'),            
+             ('picking_type_code', '=', 'outgoing'),
              ('scheduled_date', '>=', datetime.combine(date, datetime.min.time())),
              ('scheduled_date', '<=', datetime.combine(date, datetime.max.time()))]
         )
@@ -64,9 +66,26 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         )
 
     @api.multi
+    def get_credit_notes_delivery_zone_date(self, delivery_zone_id, date):
+        return self.env['account.invoice'].search(
+            [('delivery_zone_id', '=', delivery_zone_id),
+             ('state', '!=', 'draft'),
+             ('type', '=', 'out_refund'),
+             ('date_invoice', '=', date)]
+        )
+
+    @api.multi
     def get_payments_delivery_zone_date(self, delivery_zone_id, date):
         return self.env['account.payment'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('payment_type', '=', 'inbound'),
+             ('payment_date', '=', date)]
+        )
+
+    @api.multi
+    def get_payments_refund_delivery_zone_date(self, delivery_zone_id, date):
+        return self.env['account.payment'].search(
+            [('delivery_zone_id', '=', delivery_zone_id),
+             ('payment_type', '=', 'outbound'),
              ('payment_date', '=', date)]
         )

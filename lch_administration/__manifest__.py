@@ -21,7 +21,7 @@
     'data': [
         'views/sale_order_view_restrict.xml',
         'views/account_payment.xml',
-        'views/account_invoice_restrict.xml',
+        #'views/account_invoice_restrict.xml',
         'views/product_template_restrict.xml',
         'security/security.xml',
     ],

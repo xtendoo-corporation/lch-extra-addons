@@ -75,7 +75,7 @@
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='discounting_type']" position="replace">
                     <field name="discounting_type" groups="lch_administration.edit_discounts"/>
-                </xpath> 
+                </xpath>
             <!-- Fin Ocultar tipo de descuento-->
             </field>
         </record>
