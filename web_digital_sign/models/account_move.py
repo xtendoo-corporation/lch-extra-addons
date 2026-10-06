@@ -3,7 +3,7 @@
 from odoo import models, fields
 
 
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+class AccountMove(models.Model):
+    _inherit = 'account.move'
 
     digital_signature = fields.Binary(string='Digital signature')

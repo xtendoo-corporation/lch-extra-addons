@@ -25,7 +25,7 @@
         'views/users_view.xml',
         'views/sale_view.xml',
         'views/stock_picking_view.xml',
-        'views/account_invoice_view.xml'],
+        'views/account_move_view.xml'],
     'website': 'http://www.serpentcs.com',
     'qweb': ['static/src/xml/digital_sign.xml'],
     'installable': True,
