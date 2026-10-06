@@ -1,3 +1,5 @@
+# 13.0: NO SE PORTA. Parcheaba account.invoice.tax (desaparece en 13: los impuestos son apuntes de account.move.line).
+# Sus 615 valores real_amount_total se conservan en la tabla lch_legacy_invoice_tax (ver scripts/salto_13_pre.sql del proyecto de migracion).
 
 {
     'name': 'Tax round bug fix',
@@ -16,7 +18,7 @@
         'views/account_invoice_form.xml'
     ],
     'demo': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 
 }

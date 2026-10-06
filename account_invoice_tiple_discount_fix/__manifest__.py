@@ -1,3 +1,5 @@
+# 13.0: NO SE PORTA. Sobrescribia _compute_price de account.invoice.line (desaparece en 13); el calculo con 3 descuentos
+# lo cubre account_invoice_triple_discount de OCA 13.0 sobre account.move.line. El modulo no tenia campos propios (sin datos).
 # Copyright 2019 Manuel Calero Solis (http://www.xtendoo.es)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
@@ -10,5 +12,5 @@
     'depends': [
         'account_invoice_triple_discount',
     ],
-    'installable': True,
+    'installable': False,
 }
