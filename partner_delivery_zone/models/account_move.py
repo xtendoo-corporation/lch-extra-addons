@@ -5,8 +5,8 @@ from odoo.http import request
 import logging
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     def _get_partner_delivery_zone(self):
         if not request:
@@ -19,7 +19,8 @@ class AccountInvoice(models.Model):
         comodel_name='partner.delivery.zone',
         string="Delivery Zone",
         ondelete='restrict',
-        required=True,
+        # 13.0: account.move incluye asientos que no son factura -> no obligatorio en BD
+        required=False,
         index=True,
         default=_get_partner_delivery_zone,
     )

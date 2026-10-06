@@ -58,11 +58,11 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         )
 
     def get_invoices_delivery_zone_date(self, delivery_zone_id, date):
-        return self.env['account.invoice'].search(
+        return self.env['account.move'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('state', '!=', 'draft'),
              ('type', 'in', ['out_invoice', 'out_refund']),
-             ('date_invoice', '=', date)]
+             ('invoice_date', '=', date)]
         )
 
     def get_payments_delivery_zone_date(self, delivery_zone_id, date):
@@ -76,13 +76,17 @@ class ReportSaleDeliveryZone(models.AbstractModel):
 
     def get_payments_delivery_zone_date_ids(self, delivery_zone_id, date):
         payments = []
-        invoices = self.env['account.invoice'].search(
+        invoices = self.env['account.move'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('state', '!=', 'draft'),
              ('type', 'in', ['out_invoice','out_refund']),
-             ('date_invoice', '=', date)])
+             ('invoice_date', '=', date)])
         for invoice in invoices:
-            for payment in invoice.payment_ids:
+            # 13.0: ya no existe invoice.payment_ids; los pagos salen de las conciliaciones de sus apuntes
+            reconciled = (
+                invoice.line_ids.mapped('matched_debit_ids.debit_move_id.payment_id')
+                | invoice.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id'))
+            for payment in reconciled:
                 payments.append(payment.id)
         return payments
 

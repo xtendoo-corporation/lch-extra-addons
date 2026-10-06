@@ -14,15 +14,6 @@
         </field>
     </record>
 
-    <record id="view_account_payment_invoice_form" model="ir.ui.view">
-        <field name="name">account.payment.form</field>
-        <field name="model">account.payment</field>
-        <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='communication']" position="after">
-                <field name="delivery_zone_id" attrs="{'readonly':[('state','!=', 'draft')]}"/>
-            </xpath>
-        </field>
-    </record>
+    <!-- 13.0: view_account_payment_invoice_form hereda de view_account_payment_form (mode primary): el campo le llega por herencia -->
 
 </odoo>
