@@ -28,7 +28,6 @@
     <act_window id="menu_action_report_partner_delivery_zone"
                 name="Select Delivery Zone"
                 res_model="partner.delivery.zone.wizard"
-                view_type="form"
                 view_mode="form"
                 view_id="partner_delivery_zone_wizard"
                 target="new"/>
