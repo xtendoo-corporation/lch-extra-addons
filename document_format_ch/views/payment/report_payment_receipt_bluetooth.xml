@@ -20,7 +20,7 @@
             <field name="dpi">90</field>
         </record>
 
-        <report id="report_payment_receipt_bluetooth"
+        <report id="report_payment_receipt_bluetooth_action"
                 string="Recibo de Pago Bluetooth"
                 model="account.payment"
                 report_type="qweb-pdf"
