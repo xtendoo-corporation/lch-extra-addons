@@ -3,7 +3,7 @@
 {
     'name': 'Pickings done to draft',
     'summary': """Allows you to change a delivery marked as done""",
-    'version': "13.0.1.0.0",
+    'version': "14.0.1.0.0",
     'description': """Allows you to change a delivery marked as done""",
     'author': 'DDL',
     'company': 'Xtendoo',
