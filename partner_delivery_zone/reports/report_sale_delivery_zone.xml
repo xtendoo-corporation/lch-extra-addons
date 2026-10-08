@@ -386,12 +386,11 @@
         </t>
     </template>
 
-    <record id="report_sale" model="ir.actions.report">
-        <field name="name">Sale Report</field>
-        <field name="model">partner_delivery_zone.report_sale_delivery_zone</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">partner_delivery_zone.report_sale_delivery_zone</field>
-        <field name="file">partner_delivery_zone.report_sale_delivery_zone</field>
-    </record>
+    <report id="report_sale"
+            string="Sale Report"
+            model="partner_delivery_zone.report_sale_delivery_zone"
+            report_type="qweb-pdf"
+            name="partner_delivery_zone.report_sale_delivery_zone"
+            file="partner_delivery_zone.report_sale_delivery_zone"/>
 
 </odoo>
