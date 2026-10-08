@@ -20,7 +20,7 @@ class AccountMove(models.Model):
         que viene de un pedido por tanto lo dejamos pasar.
         Solo se restringe la creacion de FACTURAS: los asientos (pagos, extractos...) no se tocan.
         """
-        if (self._context.get('default_type') in INVOICE_TYPES
+        if (self._context.get('default_move_type') in INVOICE_TYPES
                 and not self.env["res.users"].has_group("lch_administration.administration_group")):
             active_model = ""
             if self._context.get('params'):
@@ -36,6 +36,6 @@ class AccountMove(models.Model):
 
     def button_cancel(self):
         # 12.0: action_invoice_cancel. Solo se restringe cancelar FACTURAS, no los asientos de pagos
-        if any(move.type in INVOICE_TYPES for move in self) and not self.env.user.administration:
+        if any(move.move_type in INVOICE_TYPES for move in self) and not self.env.user.administration:
             raise ValidationError(("No tiene permisos para cancelar facturas"))
         return super(AccountMove, self).button_cancel()

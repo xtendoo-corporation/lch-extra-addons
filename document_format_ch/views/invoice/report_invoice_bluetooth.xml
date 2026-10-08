@@ -137,12 +137,12 @@
                    <div style="width:60%; float:left;font-weight:bolder; margin-top:25px;font-size:0.9em;">
 
                        <div>
-                            <span t-if="o.type == 'out_invoice' and o.state == 'posted'">Factura</span>
-                            <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Factura Borrador</span>
-                            <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Factura Cancelada</span>
-                            <span t-if="o.type == 'out_refund'">Factura Rectificativa</span>
-                            <span t-if="o.type == 'in_refund'">Factura Rectificativa</span>
-                            <span t-if="o.type == 'in_invoice'">Factura</span>
+                            <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Factura</span>
+                            <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Factura Borrador</span>
+                            <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Factura Cancelada</span>
+                            <span t-if="o.move_type == 'out_refund'">Factura Rectificativa</span>
+                            <span t-if="o.move_type == 'in_refund'">Factura Rectificativa</span>
+                            <span t-if="o.move_type == 'in_invoice'">Factura</span>
                        </div>
 
                        <div>
@@ -190,13 +190,13 @@
 
                    <div style="clear:both;width:60%;font-size:0.9em;float:left;font-weight:bolder;">
 
-                       <div name="reference" class="col-auto mw-100 mb-2" t-if="o.invoice_payment_ref">
+                       <div name="reference" class="col-auto mw-100 mb-2" t-if="o.payment_reference">
                            <div style="width:100%">
                                <span style="color:black;">Referencia:</span>
                            </div>
 
                            <div style="width:100%">
-                               <span class="m-0" t-field="o.invoice_payment_ref"/>
+                               <span class="m-0" t-field="o.payment_reference"/>
                            </div>
 
                        </div>

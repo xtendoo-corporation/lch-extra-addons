@@ -61,7 +61,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         return self.env['account.move'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('state', '!=', 'draft'),
-             ('type', 'in', ['out_invoice', 'out_refund']),
+             ('move_type', 'in', ['out_invoice', 'out_refund']),
              ('invoice_date', '=', date)]
         )
 
@@ -79,7 +79,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         invoices = self.env['account.move'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('state', '!=', 'draft'),
-             ('type', 'in', ['out_invoice','out_refund']),
+             ('move_type', 'in', ['out_invoice','out_refund']),
              ('invoice_date', '=', date)])
         for invoice in invoices:
             # 13.0: ya no existe invoice.payment_ids; los pagos salen de las conciliaciones de sus apuntes

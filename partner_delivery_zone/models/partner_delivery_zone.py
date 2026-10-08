@@ -64,7 +64,7 @@ class PartnerDeliveryZone(models.Model):
     def get_invoices_today(self):
         return self.env['account.move'].search(
             [('delivery_zone_id', '=', self.id),
-             ('type', 'in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']),
+             ('move_type', 'in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']),
              ('state', '!=', 'draft'),
              ('invoice_date', '=', self.date)]
         )
