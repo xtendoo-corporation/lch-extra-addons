@@ -14,15 +14,15 @@
     </record>
 
     <record id="account.action_account_payments" model="ir.actions.act_window">
-        <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        <field name="view_mode">list,kanban,form,pivot,graph</field>
     </record>
 
     <record id="account.action_account_payments_payable" model="ir.actions.act_window">
-        <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        <field name="view_mode">list,kanban,form,pivot,graph</field>
     </record>
 
     <record id="account.action_account_payments_transfer" model="ir.actions.act_window">
-        <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        <field name="view_mode">list,kanban,form,pivot,graph</field>
     </record>
 
 </odoo>

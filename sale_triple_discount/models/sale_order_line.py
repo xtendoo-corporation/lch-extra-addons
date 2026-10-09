@@ -1,14 +1,72 @@
 # Copyright 2015 ADHOC SA  (http://www.adhoc.com.ar)
 # Copyright 2017 - 2019 Alex Comba - Agile Business Group
 # Copyright 2017 Tecnativa - David Vidal
-# Copyright 2018 ~ 2021 Simone Rubino - Agile Business Group
+# Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line"
+    _name = "sale.order.line"
+    _inherit = ["sale.order.line", "triple.discount.mixin"]
+
+    discount = fields.Float(
+        string="Total discount",
+        store=True,
+        compute="_compute_discount",
+        compute_sudo=True,
+        precompute=True,
+    )
+    discount1 = fields.Float(
+        string="Discount 1 (%)",
+        digits="Discount",
+        compute="_compute_discount1",
+        store=True,
+        compute_sudo=True,
+        precompute=True,
+        readonly=False,
+    )
+    discounting_type = fields.Selection(
+        selection=[("additive", "Additive"), ("multiplicative", "Multiplicative")],
+        default="multiplicative",
+        required=True,
+        help="Specifies whether discounts should be additive "
+        "or multiplicative.\nAdditive discounts are summed first and "
+        "then applied.\nMultiplicative discounts are applied sequentially.\n"
+        "Multiplicative discounts are default",
+    )
+
+    @api.depends(
+        lambda self: self._get_multiple_discount_field_names()
+        + ["product_id", "product_uom", "product_uom_qty"]
+    )
+    def _compute_discount(self):
+        # 18.0 (port propio de OCA 17.0): pricelist.discount_policy ya no existe y el mixin ya no ofrece
+        # _get_lines_to_compute_discount. El _compute_discount de sale 18 hace `continue` sin tocar el valor cuando no
+        # hay descuento de tarifa, asi que se resetea SIEMPRE a 0 antes: si hay descuento de tarifa, super() lo recalcula.
+        for line in self:
+            line.discount = 0
+        res = super()._compute_discount()
+        if self.env.context.get("skip_triple_discount"):
+            return res
+        for line in self:
+            line.discount = line._get_final_discount()
+        return res
+
+    @api.depends("product_id", "product_uom", "product_uom_qty")
+    def _compute_discount1(self):
+        # Calculate the original super()s discount and drag it to discount1
+        # This is primarily for the field to visually update when creating new lines
+        # rather than updating itself in the create() after you save
+        # Since we aren't in the actual compute, this shouldn't actually save any
+        # values to .discount
+        with self.env.protecting(
+            [self.env["sale.order.line"]._fields["discount"]], self
+        ):
+            self.with_context(skip_triple_discount=True)._compute_discount()
+            for line in self:
+                line.discount1 = line.discount
 
     def _get_final_discount(self):
         self.ensure_one()
@@ -16,11 +74,16 @@ class SaleOrderLine(models.Model):
             return self._additive_discount()
         elif self.discounting_type == "multiplicative":
             return self._multiplicative_discount()
+        else:
+            raise ValidationError(
+                _("Sale order line %(name)s has unknown discounting type %(dic_type)s")
+                % {"name": self.name, "dic_type": self.discounting_type}
+            )
 
     def _additive_discount(self):
         self.ensure_one()
         discount = sum(
-            [getattr(self, x) or 0.0 for x in self._discount_fields()]
+            self[x] or 0.0 for x in self._get_multiple_discount_field_names()
         )
         if discount <= 0:
             return 0
@@ -30,98 +93,25 @@ class SaleOrderLine(models.Model):
 
     def _multiplicative_discount(self):
         self.ensure_one()
-        discounts = [1 - (self[x] or 0.0) / 100
-                     for x in self._discount_fields()]
-        final_discount = 1
-        for discount in discounts:
-            final_discount *= discount
-        return 100 - final_discount * 100
+        return self._get_aggregated_multiple_discounts(
+            [self[x] for x in self._get_multiple_discount_field_names()]
+        )
 
-    def _discount_fields(self):
-        return ['discount', 'discount2', 'discount3']
-
-    @api.depends('discount2', 'discount3', 'discounting_type')
-    def _compute_amount(self):
-        for line in self:
-            prev_values = line.triple_discount_preprocess()
-            super(SaleOrderLine, line)._compute_amount()
-            line.triple_discount_postprocess(prev_values)
-
-    discount2 = fields.Float(
-        'Disc. 2 (%)',
-        digits='Discount',
-        default=0.0,
-    )
-    discount3 = fields.Float(
-        'Disc. 3 (%)',
-        digits='Discount',
-        default=0.0,
-    )
-    discounting_type = fields.Selection(
-        string="Discounting type",
-        selection=[
-            ('additive', 'Additive'),
-            ('multiplicative', 'Multiplicative'),
-        ],
-        default="multiplicative",
-        required=True,
-        help="Specifies whether discounts should be additive "
-        "or multiplicative.\nAdditive discounts are summed first and "
-        "then applied.\nMultiplicative discounts are applied sequentially.\n"
-        "Multiplicative discounts are default",
-    )
-
-    _sql_constraints = [
-        ('discount2_limit', 'CHECK (discount2 <= 100.0)',
-         'Discount 2 must be lower than 100%.'),
-        ('discount3_limit', 'CHECK (discount3 <= 100.0)',
-         'Discount 3 must be lower than 100%.'),
-    ]
-
-    def _get_triple_discount(self):
-        """Get the discount that is equivalent to the subsequent application
-        of discount, discount2 and discount3"""
-        discount_factor = 1.0
-        for discount in [self.discount, self.discount2, self.discount3]:
-            discount_factor *= (100.0 - discount) / 100.0
-        return 100.0 - (discount_factor * 100.0)
-
-    def _prepare_invoice_line(self, qty):
-        res = super(SaleOrderLine, self)._prepare_invoice_line(qty)
-        res.update({
-            'discount2': self.discount2,
-            'discount3': self.discount3,
-        })
-        return res
-
-    @api.depends('discount2', 'discount3')
-    def _get_price_reduce(self):
-        prev_values = self.triple_discount_preprocess()
-        super(SaleOrderLine, self)._get_price_reduce()
-        self.triple_discount_postprocess(prev_values)
-
-    def triple_discount_preprocess(self):
-        """Save the values of the discounts in a dictionary,
-        to be restored in postprocess.
-        Resetting discount2 and discount3 to 0.0 avoids issues if
-        this method is called multiple times."""
-        prev_values = dict()
-
-        for line in self:
-            prev_values[line] = dict(
-                discount=line.discount,
-                discount2=line.discount2,
-                discount3=line.discount3,
+    def _prepare_invoice_line(self, **kwargs):
+        """
+        Inherit this method to bring
+        more discount fields to the invoice lines
+        """
+        res = super()._prepare_invoice_line(**kwargs)
+        res.pop("discount", None)
+        if self.discounting_type == "multiplicative":
+            res.update(
+                {
+                    "discount1": self.discount1,
+                    "discount2": self.discount2,
+                    "discount3": self.discount3,
+                }
             )
-            line.update({
-                'discount': line._get_final_discount(),
-                'discount2': 0.0,
-                'discount3': 0.0
-            })
-        return prev_values
-
-    @api.model
-    def triple_discount_postprocess(self, prev_values):
-        """Restore the discounts of the lines in the dictionary prev_values."""
-        for line, prev_vals_dict in list(prev_values.items()):
-            line.update(prev_vals_dict)
+        else:
+            res.update({"discount1": self.discount})
+        return res

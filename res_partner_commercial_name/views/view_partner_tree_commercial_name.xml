@@ -3,7 +3,7 @@
     <data>
 
         <record id="res_partner_tree_inherit_commercial_name" model="ir.ui.view">
-            <field name="name">res.partner.tree.inherit.commercial_name</field>
+            <field name="name">res.partner.list.inherit.commercial_name</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">

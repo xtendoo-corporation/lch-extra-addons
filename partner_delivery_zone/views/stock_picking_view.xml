@@ -47,7 +47,7 @@
     </record>
 
     <record id="picking_view_delivery_tree" model="ir.ui.view">
-        <field name="name">stock.picking.delivery.tree</field>
+        <field name="name">stock.picking.delivery.list</field>
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.vpicktree"/>
         <field name="arch" type="xml">

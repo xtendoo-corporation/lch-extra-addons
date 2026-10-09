@@ -5,23 +5,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Sale Triple Discount',
-    'version': "13.0.1.0.0",
-    'category': 'Sales',
-    'author': 'ADHOC SA, '
-              'Agile Business Group, '
-              'Tecnativa, '
-              'Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/sale-workflow',
-    'license': 'AGPL-3',
-    'summary': 'Manage triple discount on sale order lines',
-    'depends': [
-        'sale_management',
-        'account_invoice_triple_discount',
-    ],
-    'data': [
-        'views/sale_order_view.xml',
-        'views/sale_order_report.xml',
-    ],
-    'installable': True,
+    "name": "Sale Triple Discount",
+    "version": "18.0.1.0.0",
+    "category": "Sales",
+    "author": "ADHOC SA, Agile Business Group, Tecnativa, "
+    "Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/sale-workflow",
+    "license": "AGPL-3",
+    "summary": "Manage triple discount on sale order lines",
+    # LCH: port propio 17.0 -> 18.0 del modulo de OCA sale-workflow (aun no portado en OCA 18.0). Mismo nombre tecnico y campos para conservar los datos.
+    # Cuando OCA publique sale_triple_discount 18.0, sustituirlo por el de OCA (quitarlo de lch-extra-addons).
+    "depends": ["sale", "account_invoice_triple_discount"],
+    "data": ["views/sale_order_report.xml", "views/sale_order_view.xml"],
+    "installable": True,
 }

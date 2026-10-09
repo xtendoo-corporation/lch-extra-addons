@@ -12,7 +12,7 @@
                 </xpath>
             <!-- Fin no ver margen -->
             <!-- No editar precio unitario -->
-                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="replace">
+                <xpath expr="//field[@name='order_line']/list//field[@name='price_unit']" position="replace">
                     <field name="can_edit_price" invisible="1"/>
                     <field name="is_admin" invisible="1"/>
                     <field name="price_unit" readonly="not can_edit_price"/>
@@ -24,7 +24,7 @@
                 </xpath>
             <!-- Fin no editar precio unitario -->
             <!-- Ocultar coste en linea y no dejar editarlo a comerciales-->
-                 <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="replace">
+                 <xpath expr="//field[@name='order_line']/list//field[@name='purchase_price']" position="replace">
                     <field name="purchase_price" groups="lch_administration.show_cost_price" readonly="not is_admin"/>
                 </xpath>
             <!--  Abrir:Lineas del pedido  -->
@@ -34,7 +34,7 @@
             <!--  Fin Abrir.Lineas del pedido  -->
             <!-- Fin ocultar coste en linea y no dejar editarlo a comerciales-->
             <!-- No editar IVA -->
-                <xpath expr="//field[@name='order_line']/tree//field[@name='tax_id']" position="replace">
+                <xpath expr="//field[@name='order_line']/list//field[@name='tax_id']" position="replace">
                     <field name="can_edit_tax" invisible="1"/>
                     <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" readonly="not can_edit_tax"/>
                 </xpath>
@@ -44,7 +44,7 @@
                 </xpath>
             <!-- Fin no editar IVA -->
             <!-- No editar descuento 1 -->
-                <xpath expr="//field[@name='order_line']/tree//field[@name='discount']" position="replace">
+                <xpath expr="//field[@name='order_line']/list//field[@name='discount']" position="replace">
                     <field name="can_edit_discounts" invisible="1"/>
                     <field name="discount" readonly="not can_edit_discounts"/>
                 </xpath>
@@ -54,7 +54,7 @@
                 </xpath>
             <!-- Fin no editar descuento 1-->
             <!-- No editar descuento 2 -->
-                 <xpath expr="//field[@name='order_line']/tree//field[@name='discount2']" position="replace">
+                 <xpath expr="//field[@name='order_line']/list//field[@name='discount2']" position="replace">
                     <field name="discount2" readonly="not can_edit_discounts"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='discount2']" position="replace">
@@ -62,7 +62,7 @@
                 </xpath>
             <!-- Fin no editar descuento 2-->
             <!-- No editar descuento 3 -->
-                 <xpath expr="//field[@name='order_line']/tree//field[@name='discount3']" position="replace">
+                 <xpath expr="//field[@name='order_line']/list//field[@name='discount3']" position="replace">
                     <field name="discount3" readonly="not can_edit_discounts"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='discount3']" position="replace">
@@ -70,7 +70,7 @@
                 </xpath> 
             <!-- Fin no editar descuento 3-->
             <!-- Ocultar tipo de descuento -->
-                 <xpath expr="//field[@name='order_line']/tree//field[@name='discounting_type']" position="replace">
+                 <xpath expr="//field[@name='order_line']/list//field[@name='discounting_type']" position="replace">
                     <field name="discounting_type" groups="lch_administration.edit_discounts"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='discounting_type']" position="replace">
@@ -81,7 +81,7 @@
         </record>
        <!--  buscar mas... (ventas)  -->
         <record model="ir.ui.view" id="product_template_tree_view_inherit">
-        <field name="name"> product.template.tree.view.inherit</field>
+        <field name="name"> product.template.list.view.inherit</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_product_tree_view"/>
         <field name="arch" type="xml">
