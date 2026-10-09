@@ -2,7 +2,7 @@
 {
     'name': 'document_format_ch',
     'summary': """Formatos de documentos CH""",
-    'version': "14.0.1.0.0",
+    'version': "15.0.1.0.0",
     'description': """Formatos de documentos CH""",
     'author': 'Dani-Xtendoo',
     'company': 'Xtendoo',

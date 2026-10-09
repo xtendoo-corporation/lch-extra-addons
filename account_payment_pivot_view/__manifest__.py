@@ -1,7 +1,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Account Payment Pivot View',
-    'version': "14.0.1.0.0",
+    'version': "15.0.1.0.0",
     'summary': 'Account Payment Pivot View',
     'author': 'Manuel Calero Solís',
     'company': 'Xtendoo',
