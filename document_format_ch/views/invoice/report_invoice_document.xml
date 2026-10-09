@@ -4,11 +4,15 @@
 
         <template id="report_invoice_document_ch" inherit_id="account.report_invoice_document" priority="200">
 
-            <xpath expr="/t/t/t[@t-set='address']" position="replace">
-
+            <!-- 16.0: la direccion se declara en 3 ramas condicionales (antes un unico t-set); se vacian las 3 -->
+            <xpath expr="//div[@name='address_not_same_as_shipping']/t[@t-set='address']" position="replace">
                 <div></div>
-
-
+            </xpath>
+            <xpath expr="//div[@name='address_same_as_shipping']/t[@t-set='address']" position="replace">
+                <div></div>
+            </xpath>
+            <xpath expr="//div[@name='no_shipping']/t[@t-set='address']" position="replace">
+                <div></div>
             </xpath>
 
             <xpath expr="//div[@class='page']" position="replace">
