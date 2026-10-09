@@ -12,7 +12,7 @@ class StockMove(models.Model):
     def action_back_to_draft(self):
         if self.filtered(lambda m: m.state == 'done'):
             self.write({'state': 'draft'})
-            self.write({'quantity_done': 0})
+            self.write({'quantity': 0, 'picked': False})  # 17.0: quantity_done -> quantity + picked
         self._action_confirm()
         self._action_assign()
 

@@ -14,7 +14,8 @@ class SaleOrder(models.Model):
         for picking in self.picking_ids:
 
             for line in picking.move_ids:
-                line.quantity_done = line.product_uom_qty
+                line.quantity = line.product_uom_qty
+                line.picked = True
 
             picking.button_validate()
 

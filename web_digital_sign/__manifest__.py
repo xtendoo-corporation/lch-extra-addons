@@ -2,7 +2,7 @@
 
 {
     'name': 'Xtendoo Web Digital Signature',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'author': 'Xtendoo',
     'maintainer': 'Javier Lagares',
     'complexity': 'easy',
@@ -26,11 +26,7 @@
         'views/stock_picking_view.xml',
         'views/account_move_view.xml'],
     'website': 'http://www.serpentcs.com',
-    # 15.0: los bundles se declaran aqui (ya no se hereda web.assets_backend desde XML ni existe la clave 'qweb')
-    'assets': {
-        'web.assets_backend': ['web_digital_sign/static/src/js/digital_sign.js'],
-        'web.assets_qweb': ['web_digital_sign/static/src/xml/digital_sign.xml'],
-    },
+    # 17.0: sin JS propio; widget="signature" es nativo (el widget legacy odoo.define ya no existe en 17)
     'installable': True,
     'auto_install': False,
 }

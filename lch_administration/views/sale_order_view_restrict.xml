@@ -15,17 +15,17 @@
                 <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="replace">
                     <field name="can_edit_price" invisible="1"/>
                     <field name="is_admin" invisible="1"/>
-                    <field name="price_unit" attrs="{'readonly': [('can_edit_price', '=', False)]}"/>
+                    <field name="price_unit" readonly="not can_edit_price"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='price_unit']" position="replace">
                     <field name="can_edit_price" invisible="1"/>
                     <field name="is_admin" invisible="1"/>
-                    <field name="price_unit" attrs="{'readonly': [('can_edit_price', '=', False)]}"/>
+                    <field name="price_unit" readonly="not can_edit_price"/>
                 </xpath>
             <!-- Fin no editar precio unitario -->
             <!-- Ocultar coste en linea y no dejar editarlo a comerciales-->
                  <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="replace">
-                    <field name="purchase_price" groups="lch_administration.show_cost_price" attrs="{'readonly': [('is_admin', '=', False)]}"/>
+                    <field name="purchase_price" groups="lch_administration.show_cost_price" readonly="not is_admin"/>
                 </xpath>
             <!--  Abrir:Lineas del pedido  -->
                 <xpath expr="//page[@name='order_lines']//field[@name='purchase_price']" position="attributes">
@@ -36,37 +36,37 @@
             <!-- No editar IVA -->
                 <xpath expr="//field[@name='order_line']/tree//field[@name='tax_id']" position="replace">
                     <field name="can_edit_tax" invisible="1"/>
-                    <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" attrs="{'readonly': [('can_edit_tax', '=', False)]}"/>
+                    <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" readonly="not can_edit_tax"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='tax_id']" position="replace">
                     <field name="can_edit_tax" invisible="1"/>
-                    <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" attrs="{'readonly': [('can_edit_tax', '=', False)]}"/>
+                    <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" readonly="not can_edit_tax"/>
                 </xpath>
             <!-- Fin no editar IVA -->
             <!-- No editar descuento 1 -->
                 <xpath expr="//field[@name='order_line']/tree//field[@name='discount']" position="replace">
                     <field name="can_edit_discounts" invisible="1"/>
-                    <field name="discount" attrs="{'readonly': [('can_edit_discounts', '=', False)]}"/>
+                    <field name="discount" readonly="not can_edit_discounts"/>
                 </xpath>
                  <xpath expr="//page[@name='order_lines']//field[@name='discount']" position="replace">
                     <field name="can_edit_discounts" invisible="1"/>
-                    <field name="discount" attrs="{'readonly': [('can_edit_discounts', '=', False)]}"/>
+                    <field name="discount" readonly="not can_edit_discounts"/>
                 </xpath>
             <!-- Fin no editar descuento 1-->
             <!-- No editar descuento 2 -->
                  <xpath expr="//field[@name='order_line']/tree//field[@name='discount2']" position="replace">
-                    <field name="discount2" attrs="{'readonly': [('can_edit_discounts', '=', False)]}"/>
+                    <field name="discount2" readonly="not can_edit_discounts"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='discount2']" position="replace">
-                    <field name="discount2" attrs="{'readonly': [('can_edit_discounts', '=', False)]}"/>
+                    <field name="discount2" readonly="not can_edit_discounts"/>
                 </xpath>
             <!-- Fin no editar descuento 2-->
             <!-- No editar descuento 3 -->
                  <xpath expr="//field[@name='order_line']/tree//field[@name='discount3']" position="replace">
-                    <field name="discount3" attrs="{'readonly': [('can_edit_discounts', '=', False)]}"/>
+                    <field name="discount3" readonly="not can_edit_discounts"/>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']//field[@name='discount3']" position="replace">
-                    <field name="discount3" attrs="{'readonly': [('can_edit_discounts', '=', False)]}"/>
+                    <field name="discount3" readonly="not can_edit_discounts"/>
                 </xpath> 
             <!-- Fin no editar descuento 3-->
             <!-- Ocultar tipo de descuento -->

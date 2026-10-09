@@ -17,11 +17,12 @@ class Picking(models.Model):
         if not self.move_ids and not self.move_line_ids and not self.move_ids_without_package:
             raise UserError(_('Please add some items to move.'))
 
+        # 17.0: qty_done/reserved_uom_qty/quantity_done desaparecen; la cantidad es `quantity` y se marca `picked`
         if self.move_line_ids:
             for move_line in self.move_line_ids:
-                move_line.qty_done = move_line.reserved_uom_qty
+                move_line.picked = True
 
         if self.move_ids_without_package:
-            for move_line in self.move_ids_without_package:
-                move_line.quantity_done = move_line.product_qty
-
+            for move in self.move_ids_without_package:
+                move.quantity = move.product_uom_qty
+                move.picked = True

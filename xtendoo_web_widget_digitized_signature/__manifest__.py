@@ -7,7 +7,7 @@
 
 {
     'name': 'Xtendoo Web Widget Digitized Signature',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'author': 'Xtendoo, '
               'Serpent Consulting Services Pvt. Ltd., '
               'Agile Business Group, '
@@ -25,10 +25,7 @@
         'views/res_users_view.xml',
         'views/stock_picking_view.xml',
     ],
-    # 15.0: bundles en el manifest. Como en v12 (donde la ruta del <script> era erronea) solo se carga el qweb; el JS duplica web_digital_sign.
-    'assets': {
-        'web.assets_qweb': ['xtendoo_web_widget_digitized_signature/static/src/xml/digital_sign.xml'],
-    },
+    # 17.0: sin JS propio; widget="signature" es nativo (el widget legacy odoo.define ya no existe en 17)
     'installable': True,
     'development_status': 'Production/Stable',
     'maintainers': [

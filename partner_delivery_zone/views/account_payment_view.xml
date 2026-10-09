@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
             <!-- 15.0: communication -> ref (Memo) -->
             <xpath expr="//field[@name='ref']" position="after">
-                <field name="delivery_zone_id" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                <field name="delivery_zone_id" readonly="state != 'draft'"/>
             </xpath>
         </field>
     </record>

@@ -8,8 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_user_id']" position="after">
                 <field name="delivery_zone_id"
-                       attrs="{'readonly': [('state', '!=', 'draft')],
-                               'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}"/>
+                       readonly="state != 'draft'" invisible="move_type not in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']"/>
             </xpath>
         </field>
     </record>

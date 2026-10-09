@@ -70,7 +70,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         return self.env['account.payment'].search(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('payment_type', 'in', ['inbound','outbound']),
-             ('payment_date', '=', date),
+             ('date', '=', date),
              ('id', 'not in', payment_ids)]
         )
 
@@ -94,7 +94,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         return self.env['account.payment'].read_group(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('payment_type', '=', 'inbound'),
-             ('payment_date', '=', date),
+             ('date', '=', date),
              ('partner_type', '=', 'customer')],
              ['journal_id', 'amount'],
              ['journal_id'],
@@ -104,7 +104,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
         return self.env['account.payment'].read_group(
             [('delivery_zone_id', '=', delivery_zone_id),
              ('payment_type', '=', 'outbound'),
-             ('payment_date', '=', date),
+             ('date', '=', date),
              ('partner_type', '=', 'customer')],
             ['journal_id', 'amount'],
             ['journal_id'],

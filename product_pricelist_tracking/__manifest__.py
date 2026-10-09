@@ -3,7 +3,7 @@
 {
     "name": "Product Pricelist Tracking",
     "summary": "Add tracking to partner price list",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Inventory",
     "author": "Xtendoo, Odoo Community Association (OCA)",
     "license": "AGPL-3",
