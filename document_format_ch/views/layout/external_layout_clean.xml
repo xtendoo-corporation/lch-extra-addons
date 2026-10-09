@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <template id="external_layout_clean_ch" inherit_id="web.external_layout_clean">
+        <template id="external_layout_clean_ch" inherit_id="web.external_layout_bold">
 
             <!-- Header -->
 
@@ -92,7 +92,7 @@
 
             <!-- Footer -->
 
-            <xpath expr="//div[@class='row mt8']" position="replace">
+            <xpath expr="//div[contains(@t-attf-class,'o_clean_footer')]/div[@class='row']" position="replace">
 
                 <div>
                     <span style="font-weight:bolder;font-size:0.9em;">Inscrita en el Reg. Mercantil de Huelva, Tpmp 762,

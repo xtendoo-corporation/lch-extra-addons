@@ -36,12 +36,12 @@
                 </xpath>
                 <!-- Fin no editar internal_notes-->
                 <!-- no editar sale_ok -->
-                <xpath expr="//div/field[@name='sale_ok']" position="attributes">
+                <xpath expr="//div[@name='options']//field[@name='sale_ok']" position="attributes">
                     <attribute name="attrs">{'readonly': [('is_admin', '=', False)]}</attribute>
                 </xpath>
                 <!-- Fin no editar sale_ok-->
                  <!-- no editar purchase_ok -->
-                <xpath expr="//div/field[@name='purchase_ok']" position="attributes">
+                <xpath expr="//div[@name='options']//field[@name='purchase_ok']" position="attributes">
                     <attribute name="attrs">{'readonly': [('is_admin', '=', False)]}</attribute>
                 </xpath>
                 <!-- Fin no editar purchase_ok-->

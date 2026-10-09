@@ -22,7 +22,7 @@
 
         <template id="report_delivery_document_ch" inherit_id="stock.report_delivery_document">
 
-            <xpath expr="/t/t/t/t/t[@t-set='address']" position="replace">
+            <xpath expr="//t[@t-set='address']" position="replace">
 
                 <div></div>
 

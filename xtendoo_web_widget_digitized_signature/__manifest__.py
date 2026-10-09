@@ -22,13 +22,13 @@
         'stock',
     ],
     'data': [
-        'views/web_digital_sign_view.xml',
         'views/res_users_view.xml',
         'views/stock_picking_view.xml',
     ],
-    'qweb': [
-        'static/src/xml/digital_sign.xml',
-    ],
+    # 15.0: bundles en el manifest. Como en v12 (donde la ruta del <script> era erronea) solo se carga el qweb; el JS duplica web_digital_sign.
+    'assets': {
+        'web.assets_qweb': ['xtendoo_web_widget_digitized_signature/static/src/xml/digital_sign.xml'],
+    },
     'installable': True,
     'development_status': 'Production/Stable',
     'maintainers': [
