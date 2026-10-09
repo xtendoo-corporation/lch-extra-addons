@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
                 <field name="display_name" position="after">
-                    <field name="commercial_name" string="Nombre Comercial" modifiers="{'readonly':true}"/>
+                    <field name="commercial_name" string="Nombre Comercial" readonly="1"/>
                 </field>
             </field>
         </record>

@@ -9,8 +9,7 @@
             <xpath expr="//filter[@name='reconciled']" position="after">
                 <separator/>
                 <filter string="Today"
-                        domain="[('payment_date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),
-                                ('payment_date', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))]"
+                        domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"
                         name="payment_today"/>
             </xpath>
         </field>

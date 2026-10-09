@@ -11,7 +11,7 @@
                     <field name="lock_date" invisible="1"/>
                 </field>
                 <field name="payment_date" position="attributes">
-                    <attribute name="attrs">{'readonly': [('lock_date', '=', True)]}</attribute>
+                    <attribute name="readonly">lock_date</attribute>
                 </field>                
             </field>
         </record>
