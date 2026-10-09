@@ -14,7 +14,7 @@ class PurchaseOrder(models.Model):
 
         for picking in self.picking_ids:
 
-            for line in picking.move_lines:
+            for line in picking.move_ids:
                 line.quantity_done = line.product_uom_qty
 
             picking.button_validate()

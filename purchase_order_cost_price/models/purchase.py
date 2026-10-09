@@ -29,14 +29,10 @@ class PurchaseOrderLine(models.Model):
 
         return result
 
-    @api.onchange('product_qty', 'product_uom')
-    def _onchange_quantity(self):
-        result = super(PurchaseOrderLine, self)._onchange_quantity()
-        logging.info('***** Precio venta df2 *****')
-        logging.info(self.price_unit)
-        #if self.price_unit == 0.00:
-        self.price_unit = self.product_id.standard_price
-
-        logging.info(self.price_unit)
-
-        return result
+    # 16.0: _onchange_quantity desaparece; el precio es un campo calculado (price_unit) -> se fuerza el coste aqui
+    @api.depends('product_qty', 'product_uom', 'company_id')
+    def _compute_price_unit_and_date_planned_and_name(self):
+        super()._compute_price_unit_and_date_planned_and_name()
+        for line in self:
+            if line.product_id:
+                line.price_unit = line.product_id.standard_price
