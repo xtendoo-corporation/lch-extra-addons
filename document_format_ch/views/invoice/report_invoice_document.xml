@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <template id="report_invoice_document_ch" inherit_id="account.report_invoice_document">
+        <template id="report_invoice_document_ch" inherit_id="account.report_invoice_document" priority="200">
 
             <xpath expr="/t/t/t[@t-set='address']" position="replace">
 

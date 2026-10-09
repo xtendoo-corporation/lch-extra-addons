@@ -20,7 +20,7 @@
             <field name="paperformat_id" ref="document_format_ch.A4_presupuesto" />
         </record>
 
-        <template id="report_saleorder_document_ch" inherit_id="sale.report_saleorder_document">
+        <template id="report_saleorder_document_ch" inherit_id="sale.report_saleorder_document" priority="200">
 
             <xpath expr="//div[@t-field='doc.partner_id']" position="replace">
 

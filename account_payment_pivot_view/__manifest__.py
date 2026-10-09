@@ -13,6 +13,7 @@
     'data': [
         'views/view.xml',
     ],
+    'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,
 }

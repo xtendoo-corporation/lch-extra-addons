@@ -13,6 +13,7 @@ Account Payment Filter Today
     'data': [
         'views/account_payment_views.xml',
     ],
+    'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,
 }

@@ -4,13 +4,12 @@
 <odoo>
 
     <template id="report_picking" inherit_id="stock.report_picking">
-        <xpath expr="//th[@name='td_sched_date_h']" position="after">
-            <th t-if="o.picking_type_id.code == 'outgoing' and o.delivery_zone_id"><strong>Zone</strong></th>
-        </xpath>
-        <xpath expr="//td[@name='td_sched_date']" position="after">
-            <td t-if="o.picking_type_id.code == 'outgoing' and o.delivery_zone_id">
-                <span t-field="o.delivery_zone_id"/>
-            </td>
+        <!-- 15.0: ya no hay columnas td_sched_date*; la fecha programada es el bloque div_sched_date de la cabecera -->
+        <xpath expr="//div[@name='div_sched_date']" position="after">
+            <div class="col-auto" name="div_delivery_zone" t-if="o.picking_type_id.code == 'outgoing' and o.delivery_zone_id">
+                <strong>Zone:</strong>
+                <p t-field="o.delivery_zone_id"/>
+            </div>
         </xpath>
     </template>
 

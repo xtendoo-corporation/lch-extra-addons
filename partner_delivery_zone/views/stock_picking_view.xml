@@ -18,7 +18,8 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_internal_search"/>
         <field name="arch" type="xml">
-            <field name="group_id" position="after">
+            <!-- 15.0: group_id ya no esta en la vista de busqueda -->
+            <field name="picking_type_id" position="after">
                 <separator/>
                 <field name="delivery_zone_id"/>
             </field>
@@ -33,18 +34,14 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.stock_picking_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='date']" position="after">
+            <!-- 15.0: el campo es scheduled_date; la zona se anade DENTRO de oe_kanban_bottom_left (no se reemplaza el bloque: 15 incluye ahi el widget de actividades) -->
+            <xpath expr="//field[@name='scheduled_date']" position="after">
                 <field name="delivery_zone_id" />
             </xpath>
-            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="replace">
-              <div class="oe_kanban_bottom_left">
-                <div>
-                  <t t-esc="record.partner_id.value"/>
-                </div>
-                <div t-if="record.delivery_zone_id">
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
+                <div t-if="record.delivery_zone_id.raw_value">
                   <t t-esc="record.delivery_zone_id.value"/>
                 </div>
-              </div>
             </xpath>
         </field>
     </record>
