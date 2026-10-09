@@ -6,7 +6,8 @@
 
             <!-- Header -->
 
-            <xpath expr="//div[@class='o_clean_header']" position="replace">
+            <!-- 18.0: la cabecera del layout bold ya no tiene el envoltorio o_clean_header: se reemplaza su primer div.row -->
+            <xpath expr="//div[contains(@t-attf-class,'header o_company')]/div[@class='row']" position="replace">
                 <div>
                     <div class="col-6" style="display:block; width:40%;float:left;">
                         <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
@@ -92,7 +93,8 @@
 
             <!-- Footer -->
 
-            <xpath expr="//div[contains(@t-attf-class,'o_clean_footer')]/div[@class='row']" position="replace">
+            <!-- 18.0: el pie pasa a div.o_footer_content dentro del footer -->
+            <xpath expr="//div[contains(@t-attf-class,'footer o_company')]/div[hasclass('o_footer_content')]" position="replace">
 
                 <div>
                     <span style="font-weight:bolder;font-size:0.9em;">Inscrita en el Reg. Mercantil de Huelva, Tpmp 762,
