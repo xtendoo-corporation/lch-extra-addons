@@ -17,6 +17,8 @@
 
             <xpath expr="//div[hasclass('page')]" position="replace">
 
+                <!-- 18.0: el titulo del documento del layout (layout_document_title) vive dentro de la pagina que se reemplaza; ancla vacia para account_edi_ubl_cii -->
+                <t t-set="layout_document_title"></t>
                 <t t-set="esRect" t-value="o.move_type"></t>
 
                 <div style="width:50%; float:left;margin-top:35px;">
@@ -394,6 +396,13 @@
 
                 </div>
 
+            
+                <!-- 18.0: anclas VACIAS para las variantes primarias del informe (account.report_invoice_document_preview y la factura
+                     UBL/Peppol de account_edi_ubl_cii), que heredan este informe y hacen xpath sobre div#qrcode y p[@name='payment_communication'] -->
+                <div id="payment_term" class="d-none">
+                    <div id="qrcode"/>
+                    <p name="payment_communication"><t t-if="o.partner_bank_id"/></p>
+                </div>
             </xpath>
 
         </template>

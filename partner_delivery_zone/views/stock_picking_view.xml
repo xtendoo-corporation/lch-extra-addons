@@ -38,10 +38,9 @@
             <xpath expr="//field[@name='scheduled_date']" position="after">
                 <field name="delivery_zone_id" />
             </xpath>
-            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
-                <div t-if="record.delivery_zone_id.raw_value">
-                  <t t-esc="record.delivery_zone_id.value"/>
-                </div>
+            <!-- 18.0: oe_kanban_bottom_left desaparece (tarjeta t-name="card"); la zona se muestra junto al cliente del pie -->
+            <xpath expr="//footer//field[@name='partner_id']" position="after">
+                <field name="delivery_zone_id" class="ms-2 text-muted"/>
             </xpath>
         </field>
     </record>
