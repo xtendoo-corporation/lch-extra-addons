@@ -2,12 +2,15 @@
 <odoo>
 	<data>
 	
-	<report id="journal_entry_report_id"
-				string="Print Journal Entries"
-				model="account.move"
-				report_type="qweb-pdf"
-				file="bi_print_journal_entries.journal_entry_report_template_id"
-				name="bi_print_journal_entries.journal_entry_report_template_id"/>	
+	<record id="journal_entry_report_id" model="ir.actions.report">
+            <field name="name">Print Journal Entries</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bi_print_journal_entries.journal_entry_report_template_id</field>
+            <field name="report_file">bi_print_journal_entries.journal_entry_report_template_id</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>	
 							
 	</data>
 </odoo>

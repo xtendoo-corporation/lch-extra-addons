@@ -20,13 +20,15 @@
             <field name="dpi">90</field>
         </record>
 
-        <report id="report_delivery_bluetooh"
-                string="Albarán Bluetooth"
-                model="stock.picking"
-                report_type="qweb-pdf"
-                name="document_format_ch.report_delivery_bluetooth"
-                print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
-        />
+        <record id="report_delivery_bluetooh" model="ir.actions.report">
+            <field name="name">Albarán Bluetooth</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">document_format_ch.report_delivery_bluetooth</field>
+            <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
 
         <record id="document_format_ch.report_delivery_bluetooh" model="ir.actions.report">
             <field name="paperformat_id" ref="document_format_ch.bluetooth_delivery"/>

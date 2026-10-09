@@ -46,7 +46,7 @@
 
             </xpath>
 
-           <xpath expr="//div[@class='page']" position="replace">
+           <xpath expr="//div[hasclass('page')]" position="replace">
 
                <div style="width:50%; float:left;">
                     <ul class="list-unstyled">
@@ -170,8 +170,8 @@
 
               <t t-set="current_subtotal" t-value="0"/>
                     <t t-foreach="doc.order_line" t-as="line">
-                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" t-if="False"/>
               <div style="clear:both;font-size:0.9em;">
 
                     <!--Si es nota -->
@@ -240,7 +240,7 @@
                 <!--  Valor Neto -->
 
                 <div class="text-right" style="float:left;width:12%;">
-                  <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                  <span t-field="line.price_subtotal"/>
                 </div>
 
                 <!-- Fin valor neto -->

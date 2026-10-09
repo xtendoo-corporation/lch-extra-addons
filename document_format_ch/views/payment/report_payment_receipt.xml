@@ -4,7 +4,7 @@
     <data>
         <template id="document_format_ch.report_payment_receipt_document" inherit_id="account.report_payment_receipt_document">
 
-            <xpath expr="//div[@class='page']" position="replace">
+            <xpath expr="//div[hasclass('page')]" position="replace">
            
                     <div class="page">
                         <!--  Datos del documento  -->

@@ -15,7 +15,7 @@
                 <div></div>
             </xpath>
 
-            <xpath expr="//div[@class='page']" position="replace">
+            <xpath expr="//div[hasclass('page')]" position="replace">
 
                 <t t-set="esRect" t-value="o.move_type"></t>
 
@@ -146,10 +146,9 @@
 
                     <t t-set="current_subtotal" t-value="0"/>
                     <t t-foreach="o.invoice_line_ids" t-as="line">
-                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
-                           groups="account.group_show_line_subtotals_tax_excluded"/>
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
-                           groups="account.group_show_line_subtotals_tax_included"/>
+                           t-if="False"/>
                         <div style="clear:both;font-size:0.9em;">
 
                             <!-- si no es una nota -->
@@ -202,8 +201,7 @@
 
                                 <div class="text-right" style="float:left;width:12%;">
                                     <span t-if="esRect == 'out_refund'">-</span>
-                                    <span t-field="line.price_subtotal"
-                                          groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_subtotal"/>
                                 </div>
 
                                 <!-- Fin valor neto -->

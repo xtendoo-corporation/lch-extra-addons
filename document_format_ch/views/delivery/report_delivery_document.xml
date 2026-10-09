@@ -29,7 +29,7 @@
 
             </xpath>
 
-            <xpath expr="//div[@class='page']" position="replace">
+            <xpath expr="//div[hasclass('page')]" position="replace">
 
                 <div class="row">
 
