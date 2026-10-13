@@ -19,19 +19,16 @@ class PartnerDeliveryZone(models.Model):
         'delivery.zone.partner.line',
         'delivery_zone_id',
         string='Partner Zones Line',
-        auto_join=True,
     )
     visit_ids = fields.One2many(
         'partner.delivery.zone.visit',
         'delivery_zone_id',
         string='Delivery Zone Visit',
-        auto_join=True,
     )
     sale_order_ids = fields.One2many(
         'sale.order',
         'delivery_zone_id',
         string='Delivery Zone',
-        auto_join=True,
     )
 
     def set_values(self):
