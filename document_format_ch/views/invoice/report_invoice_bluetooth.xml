@@ -388,8 +388,8 @@
 
                    <!-- Términos de pago -->
 
-                    <p t-if="o.payment_term_id" name="payment_term">
-                        <span t-field="o.payment_term_id.note"/>
+                    <p t-if="o.invoice_payment_term_id" name="payment_term">
+                        <span t-field="o.invoice_payment_term_id.note"/>
                     </p>
 
                    <!-- Fin términos de pago -->

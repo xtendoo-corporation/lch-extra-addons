@@ -48,7 +48,7 @@
                                     <b>
                                         <span>Referencia: </span>
                                     </b>
-                                    <span t-field="o.communication"/>
+                                    <span t-field="o.memo"/>
                                 </li>
                             <!--  Fin referencia  -->
                             </ul>

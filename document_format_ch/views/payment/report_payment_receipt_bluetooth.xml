@@ -174,7 +174,7 @@
 
                         <div>
                             <span style="display:block;width:100%;font-weight:bolder;">Referencia:</span>
-                            <span t-field="o.communication"/>
+                            <span t-field="o.memo"/>
                         </div>
 
                         <!-- Fin referencia -->
