@@ -21,7 +21,7 @@ class AccountMove(models.Model):
         Solo se restringe la creacion de FACTURAS: los asientos (pagos, extractos...) no se tocan.
         """
         if (self._context.get('default_move_type') in INVOICE_TYPES
-                and not self.env["res.users"].has_group("lch_administration.administration_group")):
+                and not self.env.user.has_group("lch_administration.administration_group")):
             active_model = ""
             if self._context.get('params'):
                 if self._context.get('params').get('model'):

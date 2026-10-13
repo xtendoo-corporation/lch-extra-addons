@@ -333,25 +333,29 @@
                                         </td>
                                     </tr>
 
-                                    <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                    <!-- 19.0: amount_by_group desaparece; los grupos salen de tax_totals -->
+
+                                    <t t-set="tax_groups" t-value="[g for s in o.tax_totals['subtotals'] for g in s['tax_groups']]"/>
+
+                                    <t t-foreach="tax_groups" t-as="amount_by_group">
                                         <tr style="">
-                                            <t t-if="len(o.amount_by_group) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                            <t t-if="len(tax_groups) == 1 and o.amount_untaxed == amount_by_group['base_amount_currency']">
                                                 <td style="text-align:left!important;">
-                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span t-esc="amount_by_group['group_name']"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="amount_by_group[3]"/>
+                                                    <span t-esc="amount_by_group['tax_amount_currency']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                                 </td>
                                             </t>
                                             <t t-else="">
                                                 <td style="text-align:left!important;">
-                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span t-esc="amount_by_group['group_name']"/>
                                                     <span>&amp;nbsp;<span>on</span>
-                                                        <t t-esc="amount_by_group[4]"/>
+                                                        <t t-esc="amount_by_group['base_amount_currency']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                                     </span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="amount_by_group[3]"/>
+                                                    <span t-esc="amount_by_group['tax_amount_currency']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                                 </td>
                                             </t>
                                         </tr>

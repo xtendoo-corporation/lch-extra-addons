@@ -13,7 +13,7 @@
                        widget="many2many_tags"
                        readonly="1"/>
             </field>
-            <xpath expr="//field[@name='child_ids']/form//field[@name='mobile']" position="after">
+            <xpath expr="//field[@name='child_ids']/form//field[@name='phone']" position="after">
                 <field name="delivery_zone_ids"
                        widget="many2many_tags"
                        readonly="1"/>

@@ -70,11 +70,11 @@ class DeliveryZonePartnerLine(models.Model):
         readonly=True,
     )
 
-    _sql_constraints = [
-        ('unique_delivery_zone',
-         'unique (delivery_zone_id, partner_id)',
-         'Partner cannot be subscribed multiple times to the same list!')
-    ]
+    # 19.0: _sql_constraints ya no se admite -> models.Constraint (mismo nombre de restriccion en BD)
+    _unique_delivery_zone = models.Constraint(
+        'unique (delivery_zone_id, partner_id)',
+        'Partner cannot be subscribed multiple times to the same list!',
+    )
 
     def get_next_partner_not_visited_today(self, zone_id):
         visit_ids = self.env['partner.delivery.zone.visit'].get_partners_visit_today(zone_id)

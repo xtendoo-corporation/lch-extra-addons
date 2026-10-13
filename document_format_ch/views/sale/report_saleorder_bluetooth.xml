@@ -221,10 +221,10 @@
                             <p class="m-0" t-field="doc.client_order_ref"/>
                         </div>
 
-                        <div t-if="doc.confirmation_date and doc.state not in ['draft','sent']"
+                        <div t-if="doc.date_order and doc.state not in ['draft','sent']"
                              class="col-auto mw-100 mb-2">
                             <strong>Date Ordered:</strong>
-                            <p class="m-0" t-field="doc.confirmation_date"/>
+                            <p class="m-0" t-field="doc.date_order"/>
                         </div>
 
                         <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto mw-100 mb-2">
@@ -306,7 +306,7 @@
 
                                         <td class="text-right">
                                             <span t-field="line.product_uom_qty"/>
-                                            <span t-field="line.product_uom" groups="uom.group_uom"/>
+                                            <span t-field="line.product_uom_id" groups="uom.group_uom"/>
                                         </td>
 
                                         <!-- fin cantidad -->
@@ -380,17 +380,21 @@
 
                         <div style="clear:both;">
 
-                            <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+                            <!-- 19.0: amount_by_group desaparece; los grupos salen de tax_totals -->
 
-                                <t t-if="amount_by_group[3] == 1 and doc.amount_untaxed == amount_by_group[2]">
+                            <t t-set="tax_groups" t-value="[g for s in doc.tax_totals['subtotals'] for g in s['tax_groups']]"/>
+
+                            <t t-foreach="tax_groups" t-as="amount_by_group">
+
+                                <t t-if="len(tax_groups) == 1 and doc.amount_untaxed == amount_by_group['base_amount_currency']">
                                 </t>
                                 <t t-else="">
                                     <div style="width:50%;float:left;text-align:left;">
-                                        <span t-esc="amount_by_group[0]"/>
+                                        <span t-esc="amount_by_group['group_name']"/>
                                     </div>
 
                                     <div style="width:50%;float:left;">
-                                        <span t-esc="amount_by_group[1]"
+                                        <span t-esc="amount_by_group['tax_amount_currency']"
                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </div>
 

@@ -24,7 +24,7 @@
                                     <b>
                                         <span>Fecha: </span>
                                     </b>
-                                    <span t-field="o.payment_date"/>
+                                    <span t-field="o.date"/>
                                 </li>
                             <!--  Fin fecha  -->
                             <!--  Método de pago  -->

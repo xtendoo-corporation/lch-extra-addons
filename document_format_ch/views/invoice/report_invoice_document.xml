@@ -216,7 +216,7 @@
                                             <t t-set="iva" t-value="tax_line.amount"></t>
                                             <div>
                                                 <span t-esc="int(iva)"/>
-                                                <span t-if="line.price_tax > 0">%</span>
+                                                <span t-if="iva > 0">%</span>
                                             </div>
                                         </t>
                                     </t>

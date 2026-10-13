@@ -39,7 +39,7 @@ class SaleOrderLine(models.Model):
 
     @api.depends(
         lambda self: self._get_multiple_discount_field_names()
-        + ["product_id", "product_uom", "product_uom_qty"]
+        + ["product_id", "product_uom_id", "product_uom_qty"]
     )
     def _compute_discount(self):
         # 18.0 (port propio de OCA 17.0): pricelist.discount_policy ya no existe y el mixin ya no ofrece
@@ -54,7 +54,7 @@ class SaleOrderLine(models.Model):
             line.discount = line._get_final_discount()
         return res
 
-    @api.depends("product_id", "product_uom", "product_uom_qty")
+    @api.depends("product_id", "product_uom_id", "product_uom_qty")
     def _compute_discount1(self):
         # Calculate the original super()s discount and drag it to discount1
         # This is primarily for the field to visually update when creating new lines

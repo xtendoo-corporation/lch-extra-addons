@@ -312,7 +312,7 @@
                                         <!-- Cantidad -->
 
                                         <td style="width:40%;padding:0px;text-align:center;">
-                                            <span t-field="move_line.qty_done"/>
+                                            <span t-field="move_line.quantity"/>
                                             <!--  <span t-field="move_line.product_uom_id"/>-->
                                         </td>
 

@@ -121,7 +121,7 @@
 
                         <div>
                             <span style="display:block;width:100%;font-weight:bolder;">Fecha del pago:</span>
-                            <span t-field="o.payment_date"/>
+                            <span t-field="o.date"/>
                         </div>
 
                         <!-- FIn fecha del pago -->

@@ -30,7 +30,7 @@ class PurchaseOrderLine(models.Model):
         return result
 
     # 16.0: _onchange_quantity desaparece; el precio es un campo calculado (price_unit) -> se fuerza el coste aqui
-    @api.depends('product_qty', 'product_uom', 'company_id')
+    @api.depends('product_qty', 'product_uom_id', 'company_id')
     def _compute_price_unit_and_date_planned_and_name(self):
         super()._compute_price_unit_and_date_planned_and_name()
         for line in self:
