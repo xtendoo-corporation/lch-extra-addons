@@ -51,7 +51,7 @@ class SaleOrder(models.Model):
             raise ValidationError(_("No more partners in this delivery zone"))
 
         self.partner_id = partner_id
-        self.onchange_partner_id()
+        # 19.0: onchange_partner_id desaparece (los campos dependientes son computados al asignar partner_id)
 
     @api.model
     def create(self, vals):
