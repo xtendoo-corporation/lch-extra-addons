@@ -16,7 +16,7 @@ class PartnerDeliveryZoneWizard(models.TransientModel):
             logging.info("***get request.session***")
             logging.info(request.session)
             return request.session['partner_delivery_zone_id']
-        return 0
+        return False
 
     partner_delivery_zone = fields.Many2one(
         comodel_name='partner.delivery.zone',

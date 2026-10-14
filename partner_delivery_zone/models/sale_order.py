@@ -11,9 +11,9 @@ class SaleOrder(models.Model):
 
     def _get_delivery_zone_id(self):
         if not request:
-            return 0
+            return False
         if not 'partner_delivery_zone_id' in request.session:
-            return 0
+            return False
         return request.session['partner_delivery_zone_id']
 
     def _get_next_partner(self):

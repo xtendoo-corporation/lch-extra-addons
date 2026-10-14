@@ -10,9 +10,9 @@ class account_payment(models.Model):
 
     def _get_partner_delivery_zone(self):
         if not request:
-            return 0
+            return False
         if not 'partner_delivery_zone_id' in request.session:
-            return 0
+            return False
         return request.session['partner_delivery_zone_id']
 
     delivery_zone_id = fields.Many2one(

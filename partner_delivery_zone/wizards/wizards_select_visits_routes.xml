@@ -43,7 +43,7 @@
     <menuitem id="menu_action_report_partner_visit_day_wizard"
               name="Select Delivery Zone"
               parent="sale.sale_menu_root"
-              sequence="5"
+              sequence="35"
               action="action_report_partner_visit_day"/>
 
 </odoo>
