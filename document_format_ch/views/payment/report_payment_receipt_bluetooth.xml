@@ -231,15 +231,15 @@
                                     <span t-field="inv.name"/>
                                 </td>
 
-                                <td class="text-right" style="border-right:2px dotted black;border-top:2px dotted black">
+                                <td class="text-end" style="border-right:2px dotted black;border-top:2px dotted black">
                                     <span t-field="inv.amount_total"/>
                                 </td>
 
-                                <td class="text-right" style="border-right:2px dotted black;border-top:2px dotted black">
+                                <td class="text-end" style="border-right:2px dotted black;border-top:2px dotted black">
                                     <span t-esc="inv.amount_total - inv.amount_residual" t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
                                 </td>
 
-                                <td class="text-right" style="border-top:2px dotted black;">
+                                <td class="text-end" style="border-top:2px dotted black;">
                                     <span t-field="inv.amount_residual"/>
                                 </td>
 
