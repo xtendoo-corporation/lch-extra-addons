@@ -95,6 +95,11 @@
 
             <!-- Fin Header -->
 
+            <!-- 19.0: el layout bold imprime el bloque de dirección del cliente (address_layout) y un h2 con el título entre la cabecera y el
+                 documento; el layout clean de v12 no lo tenía (los documentos propios ya llevan su dirección): se quitan para que empiecen en la misma altura -->
+            <xpath expr="//t[@t-call='web.address_layout']" position="replace"/>
+            <xpath expr="//h2[@t-out='layout_document_title']" position="replace"/>
+
             <!-- Footer -->
 
             <!-- 18.0: el pie pasa a div.o_footer_content dentro del footer -->
