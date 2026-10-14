@@ -12,11 +12,10 @@ class PartnerDeliveryZoneWizard(models.TransientModel):
     _description = "Partner Delivery Zone Wizard"
 
     def _get_partner_delivery_zone(self):
-        if 'partner_delivery_zone_id' in request.session:
-            logging.info("***get request.session***")
-            logging.info(request.session)
-            return request.session['partner_delivery_zone_id']
-        return False
+        # Sin petición HTTP (shell, cron) no hay sesión; en 19 el default debe ser False, no 0
+        if not request:
+            return False
+        return request.session.get('partner_delivery_zone_id') or False
 
     partner_delivery_zone = fields.Many2one(
         comodel_name='partner.delivery.zone',
@@ -27,6 +26,4 @@ class PartnerDeliveryZoneWizard(models.TransientModel):
     def button_set_partner_delivery_zone(self):
         self.ensure_one()
         request.session['partner_delivery_zone_id'] = self.partner_delivery_zone.id
-        logging.info("***set request.session***")
-        logging.info(request.session)
 
