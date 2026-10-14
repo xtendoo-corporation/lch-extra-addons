@@ -353,7 +353,7 @@
 
                                 <t t-if="ml.move_id.sale_line_id">
                                     <t t-foreach="ml.move_id.sale_line_id.tax_ids" t-as="tax">
-                                        <t t-set="tax_name" t-value="tax.name"></t>
+                                        <t t-set="tax_name" t-value="tax.with_context(lang='en_US').name"></t>
                                         <t t-set="isIVA" t-value="tax_name.find('IVA')"></t>
                                         <span t-if="isIVA > -1" t-esc="'%.0f'%tax.amount"/>%
 
@@ -387,7 +387,7 @@
                                 </t>
                                 <t t-if="ml.move_id.purchase_line_id">
                                     <t t-foreach="ml.move_id.purchase_line_id.tax_ids" t-as="tax">
-                                        <t t-set="tax_name" t-value="tax.name"></t>
+                                        <t t-set="tax_name" t-value="tax.with_context(lang='en_US').name"></t>
                                         <t t-set="isIVA" t-value="tax_name.find('IVA')"></t>
                                         <span t-if="isIVA > -1" t-esc="'%.0f'%tax.amount"/>%
 

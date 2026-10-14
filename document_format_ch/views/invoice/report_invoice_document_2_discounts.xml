@@ -209,7 +209,7 @@
 
                                 <div class="text-right" groups="sale.group_discount_per_so_line"
                                      style="float:left;width:10%;">
-                                    <span t-field="line.discount"/>
+                                    <span t-field="line.discount1"/>
                                 </div>
 
                                  <div class="text-right" groups="sale.group_discount_per_so_line"
