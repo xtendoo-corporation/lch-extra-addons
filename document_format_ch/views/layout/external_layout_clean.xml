@@ -97,8 +97,14 @@
 
             <!-- 19.0: el layout bold imprime el bloque de dirección del cliente (address_layout) y un h2 con el título entre la cabecera y el
                  documento; el layout clean de v12 no lo tenía (los documentos propios ya llevan su dirección): se quitan para que empiecen en la misma altura -->
-            <xpath expr="//t[@t-call='web.address_layout']" position="replace"/>
-            <xpath expr="//h2[@t-out='layout_document_title']" position="replace"/>
+            <!-- Solo en los modelos cuyos documentos propios (document_format_ch) ya imprimen dirección y título; el resto de informes
+                 del core (pedido de compra, petición de presupuesto, albarán de preparación…) los llevan en v12 y los necesitan -->
+            <xpath expr="//t[@t-call='web.address_layout']" position="attributes">
+                <attribute name="t-if">not (o and o._name in ('account.move', 'sale.order', 'account.payment'))</attribute>
+            </xpath>
+            <xpath expr="//h2[@t-out='layout_document_title']" position="attributes">
+                <attribute name="t-if">not (o and o._name in ('account.move', 'sale.order', 'account.payment'))</attribute>
+            </xpath>
 
             <!-- Footer -->
 

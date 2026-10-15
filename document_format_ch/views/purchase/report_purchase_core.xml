@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- 19.0: los informes del core de compras y de albarán de preparación se ven como en v12 (layout clean: títulos y cabeceras en #7C7BAD).
+             El estilo va acotado por modelo para no tocar los documentos propios (factura, pedido de venta, albarán, recibo). -->
+        <template id="external_layout_clean_core_style_ch" inherit_id="web.external_layout_bold" priority="210">
+            <xpath expr="//t[@t-out='0']" position="before">
+                <style>
+                    .article[data-oe-model="purchase.order"] h2, .article[data-oe-model="stock.picking"] h1,
+                    .article[data-oe-model="stock.picking"] h2 {color:#7C7BAD !important; font-weight:bold; margin-top:12px;}
+                    .article[data-oe-model="purchase.order"] {margin-top:-28px;}
+                    .article[data-oe-model="purchase.order"] *:not(.fa), .article[data-oe-model="stock.picking"] *:not(.fa) {font-family: "Liberation Sans", Arial, Helvetica, sans-serif !important;}
+                    .article[data-oe-model="purchase.order"] h2 {font-size:32px; width:70%; margin-top:0;}
+                    .article[data-oe-model="stock.picking"] h1 {font-size:32px;}
+                    .article[data-oe-model="purchase.order"] #informations strong, .article[data-oe-model="stock.picking"] #informations strong,
+                    .article[data-oe-model="purchase.order"] .o_ch_label {color:#7C7BAD; font-size:1.05em;}
+                    .article[data-oe-model="purchase.order"] table.o_ch_table thead th, .article[data-oe-model="stock.picking"] table.o_ch_table thead th
+                    {color:#7C7BAD; text-transform:uppercase; font-size:0.95em; font-weight:bold; border:0; border-top:2px solid #7C7BAD; background:none;}
+                    .article[data-oe-model="purchase.order"] table.o_ch_table td, .article[data-oe-model="stock.picking"] table.o_ch_table td
+                    {border:0; border-top:1px solid #dee2e6; font-size:1.1em; vertical-align:top; padding:12px 4px;}
+                    .article[data-oe-model="purchase.order"] table.o_ch_table, .article[data-oe-model="stock.picking"] table.o_ch_table {border:0; width:100%;}
+                </style>
+            </xpath>
+        </template>
+
+        <!-- Pedido de compra: columnas y textos de v12 -->
+        <template id="report_purchaseorder_document_ch" inherit_id="purchase.report_purchaseorder_document" priority="200">
+            <xpath expr="//div[hasclass('page')]" position="replace">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <t t-set="layout_document_title">
+                        <t t-if="o.state == 'draft'">Solicitud de presupuesto #<span t-field="o.name"/></t>
+                        <t t-if="o.state in ['sent', 'to approve']">Pedido de compra #<span t-field="o.name"/></t>
+                        <t t-if="o.state == 'purchase'">Confirmación pedido de compra #<span t-field="o.name"/></t>
+                        <t t-if="o.state == 'cancel'">Pedido de compra cancelado #<span t-field="o.name"/></t>
+                    </t>
+
+                    <div id="informations" class="row mt-4 mb-4">
+                        <div t-if="o.name" class="col-3 mb-2">
+                            <strong>Ref. de nuestra orden:</strong>
+                            <p t-field="o.name" class="m-0"/>
+                        </div>
+                        <div t-if="o.partner_ref" class="col-3 mb-2">
+                            <strong>Su referencia de pedido:</strong>
+                            <p t-field="o.partner_ref" class="m-0"/>
+                        </div>
+                        <div t-if="o.date_order" class="col-3 mb-2">
+                            <strong>Fecha orden:</strong>
+                            <p t-field="o.date_order" class="m-0"/>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm o_ch_table">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Impuestos</th>
+                                <th class="text-center">Fecha req.</th>
+                                <th class="text-end">Cant.</th>
+                                <th class="text-end">Precio unidad</th>
+                                <th class="text-end">Desc. (%)</th>
+                                <th class="text-end">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_line.filtered(lambda l: l.display_type or l.product_qty != 0)" t-as="line">
+                                <tr t-if="not line.display_type">
+                                    <td><span t-field="line.name"/></td>
+                                    <td><span t-out="', '.join(line.tax_ids.with_context(lang='en_US').mapped('name'))"/></td>
+                                    <td class="text-center"><span t-field="line.date_planned"/></td>
+                                    <td class="text-end">
+                                        <span t-field="line.product_qty"/>
+                                        <span t-field="line.product_uom_id.name" groups="uom.group_uom"/>
+                                    </td>
+                                    <td class="text-end"><span t-field="line.price_unit"/></td>
+                                    <td class="text-end"><span t-field="line.discount"/></td>
+                                    <td class="text-end">
+                                        <span t-field="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr t-else="">
+                                    <td colspan="99"><strong t-if="line.display_type != 'line_note'" t-field="line.name"/><em t-else="" t-field="line.name"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div id="total" class="row justify-content-end">
+                        <div class="col-4">
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Subtotal</strong></td>
+                                    <td class="text-end"><span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                </tr>
+                                <tr>
+                                    <td>Impuestos</td>
+                                    <td class="text-end"><span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                </tr>
+                                <tr class="o_total">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-end"><span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p t-field="o.note"/>
+                    <div class="oe_structure"/>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Petición de presupuesto -->
+        <template id="report_purchasequotation_document_ch" inherit_id="purchase.report_purchasequotation_document" priority="200">
+            <!-- v12 no imprimía «Requested Ship Date» en el bloque de dirección de envío (está en dos sitios: purchase y purchase_stock) -->
+            <xpath expr="//t[@t-set='information_block']/div[span[@t-field='o.date_planned']]" position="replace"/>
+            <xpath expr="//t[@t-set='information_block']/div[span[@t-field='o.date_planned']]" position="replace"/>
+            <xpath expr="//div[hasclass('page')]" position="replace">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <t t-set="layout_document_title">
+                        <span>Solicitud de presupuesto <span t-field="o.name"/></span>
+                    </t>
+                    <table class="table table-sm o_ch_table mt-4">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th class="text-center">Fecha prevista</th>
+                                <th class="text-end">Cant.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_line.filtered(lambda l: l.display_type or l.product_qty != 0)" t-as="order_line">
+                                <tr t-if="not order_line.display_type">
+                                    <td><span t-field="order_line.name"/></td>
+                                    <td class="text-center"><span t-field="order_line.date_planned"/></td>
+                                    <td class="text-end">
+                                        <span t-field="order_line.product_qty"/>
+                                        <span t-field="order_line.product_uom_id" groups="uom.group_uom"/>
+                                    </td>
+                                </tr>
+                                <tr t-else=""><td colspan="99"><strong t-field="order_line.name"/></td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <p t-field="o.note"/>
+                    <div class="oe_structure"/>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Albarán de preparación (stock.report_picking): estructura de v12 + zona -->
+        <template id="report_picking_ch" inherit_id="stock.report_picking" priority="200">
+            <xpath expr="//div[hasclass('page')]" position="replace">
+                <div class="page o_ch_core">
+                    <style>
+                        .o_ch_core, .o_ch_core *:not(.fa) {font-family: "Liberation Sans", Arial, Helvetica, sans-serif !important;}
+                        .o_ch_core h1 {color:#7C7BAD !important; font-weight:bold; font-size:32px; margin-top:12px;}
+                        .o_ch_core .o_ch_label {color:#7C7BAD; font-size:1.05em;}
+                        .o_ch_core table.o_ch_table {border:0; width:100%;}
+                        .o_ch_core table.o_ch_table thead th {color:#7C7BAD; text-transform:uppercase; font-size:0.95em; font-weight:bold; border:0; border-top:2px solid #7C7BAD; background:none;}
+                        .o_ch_core table.o_ch_table td {border:0; border-top:1px solid #dee2e6; font-size:1.1em; vertical-align:top; padding:12px 4px;}
+                    </style>
+                    <div class="row justify-content-end mb-3">
+                        <div class="col-4" name="right_box">
+                            <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" style="width:300px;height:50px;" alt="Barcode"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div t-if="o.move_ids and o.move_ids[0].partner_id and o.move_ids[0].partner_id.id != o.partner_id.id">
+                                <span class="o_ch_label"><strong>Dirección de entrega:</strong></span>
+                                <div t-field="o.move_ids[0].partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            </div>
+                            <div t-if="o.picking_type_id.code != 'internal' and (not o.move_ids or not o.move_ids[0].partner_id) and o.picking_type_id.warehouse_id.partner_id">
+                                <span class="o_ch_label"><strong>Dirección del almacén:</strong></span>
+                                <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            </div>
+                        </div>
+                        <div class="col-5 offset-1">
+                            <div t-if="o.picking_type_id.code == 'incoming' and o.partner_id"><span class="o_ch_label"><strong>Dirección del proveedor:</strong></span></div>
+                            <div t-if="o.picking_type_id.code == 'internal' and o.partner_id"><span class="o_ch_label"><strong>Dirección del almacén:</strong></span></div>
+                            <div t-if="o.picking_type_id.code == 'outgoing' and o.partner_id"><span class="o_ch_label"><strong>Dirección del cliente:</strong></span></div>
+                            <div t-if="o.partner_id" name="partner_header">
+                                <div t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                <p t-if="o.sudo().partner_id.vat"><t t-out="o.company_id.country_id.vat_label or 'NIF'"/>: <span t-field="o.sudo().partner_id.vat"/></p>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <h1 t-field="o.name" class="mt-0 float-start"/>
+                    <div class="clearfix"/>
+                    <table class="table table-sm o_ch_table">
+                        <thead>
+                            <tr>
+                                <th t-if="o.origin">Orden</th>
+                                <th>Estado</th>
+                                <th width="20%">Fecha planificada</th>
+                                <th t-if="'delivery_zone_id' in o._fields and o.picking_type_id.code == 'outgoing' and o.delivery_zone_id">Zona</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td t-if="o.origin"><span t-field="o.origin"/></td>
+                                <td><span t-field="o.state"/></td>
+                                <td width="20%"><span t-field="o.scheduled_date"/></td>
+                                <td t-if="'delivery_zone_id' in o._fields and o.picking_type_id.code == 'outgoing' and o.delivery_zone_id"><span t-field="o.delivery_zone_id"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/><br/>
+                    <table class="table table-sm o_ch_table" t-if="o.move_line_ids">
+                        <t t-set="has_barcode" t-value="any(ml.product_id and ml.product_id.sudo().barcode or ml.package_id for ml in o.move_line_ids)"/>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th width="20%" t-if="o.picking_type_id.code != 'incoming'">Desde</th>
+                                <th t-if="o.picking_type_id.code != 'outgoing'">Hasta</th>
+                                <th width="15%" class="text-center" t-if="has_barcode">Código de barras del producto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.move_ids.sorted(key=lambda m: m.product_id.id)" t-as="move">
+                                <t t-foreach="move.move_line_ids.sorted(key=lambda ml: ml.location_id.id)" t-as="ml">
+                                    <tr>
+                                        <td>
+                                            <span t-field="ml.product_id.display_name"/><br/>
+                                            <span t-field="ml.product_id.description_picking"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="ml.quantity"/>
+                                            <span t-field="ml.product_uom_id" groups="uom.group_uom"/>
+                                        </td>
+                                        <td width="20%" t-if="o.picking_type_id.code != 'incoming'">
+                                            <span t-out="ml.location_id.display_name"/>
+                                            <t t-if="ml.package_id"><span t-field="ml.package_id"/></t>
+                                        </td>
+                                        <td t-if="o.picking_type_id.code != 'outgoing'">
+                                            <span t-field="ml.location_dest_id"/>
+                                            <t t-if="ml.result_package_id"><span t-field="ml.result_package_id"/></t>
+                                        </td>
+                                        <td width="15%" class="text-center" t-if="has_barcode">
+                                            <t t-if="product_barcode != move.product_id.barcode">
+                                                <span t-if="move.product_id and move.product_id.barcode">
+                                                    <img t-if="len(move.product_id.barcode) == 13" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', move.product_id.barcode, 600, 100)" style="width:100%;height:35px" alt="Barcode"/>
+                                                    <img t-elif="len(move.product_id.barcode) == 8" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', move.product_id.barcode, 600, 100)" style="width:100%;height:35px" alt="Barcode"/>
+                                                    <img t-else="" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move.product_id.barcode, 600, 100)" style="width:100%;height:35px" alt="Barcode"/>
+                                                </span>
+                                                <t t-set="product_barcode" t-value="move.product_id.barcode"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <p t-field="o.note"/>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -13,12 +13,15 @@
         'account',
         'sale',
         'web',
-        'stock'
+        'stock',
+        'purchase'
     ],
     'license': 'AGPL-3',
     'data': [
         #layout
         'views/layout/external_layout_clean.xml',
+        #purchase / albarán de preparación (core con el estilo de v12)
+        'views/purchase/report_purchase_core.xml',
         #sale
         'views/sale/report_saleorder_document.xml',
         'views/sale/report_saleorder_bluetooth.xml',
