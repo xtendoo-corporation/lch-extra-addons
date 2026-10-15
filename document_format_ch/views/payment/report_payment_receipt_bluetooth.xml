@@ -101,7 +101,7 @@
                 <!--Nombre del pago -->
 
                 <t t-foreach="o.reconciled_invoice_ids" t-as="inv">
-                    <div style="text-align:center;font-size:1.4em;">
+                    <div style="text-align:center;font-size:1em;">
                         <div>
                             <span style="font-weight:bolder;">Recibo del pago:</span>
                         </div>
@@ -116,7 +116,7 @@
 
                     <!-- columna de la izquierda -->
 
-                    <div style="width:50%;font-size:1.3em;float:left;margin-bottom:15px;">
+                    <div style="width:50%;font-size:1em;float:left;margin-bottom:15px;">
 
                         <!-- Fecha del pago -->
 
@@ -151,7 +151,7 @@
 
                     <!-- Columna de la derecha -->
 
-                    <div style="width:50%;font-size:1.3em;float:left;">
+                    <div style="width:50%;font-size:1em;float:left;">
 
                         <!-- Medotodo de pago -->
 

@@ -27,6 +27,7 @@ class ReportSaleDeliveryZone(models.AbstractModel):
             'get_payments_delivery_zone_date': self.get_payments_delivery_zone_date,
             'get_grouped_payments_delivery_zone_date': self.get_grouped_payments_delivery_zone_date,
             'get_payment_where_id': self.get_payment_where_id,
+            'get_journal_label': self.get_journal_label,
             'get_grouped_refund_payments_delivery_zone_date': self.get_grouped_refund_payments_delivery_zone_date,
         }
 
@@ -115,4 +116,8 @@ class ReportSaleDeliveryZone(models.AbstractModel):
             [('id', '=', payment_id)]
         )
 
-
+    @api.model
+    def get_journal_label(self, journal_id):
+        # v12: name_get del diario = «nombre (moneda)» con la moneda del diario o, si no tiene, la de la compañía
+        journal = self.env['account.journal'].browse(journal_id)
+        return '%s (%s)' % (journal.name, (journal.currency_id or journal.company_id.currency_id).name)

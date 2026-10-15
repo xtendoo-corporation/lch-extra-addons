@@ -292,7 +292,7 @@
                         <t t-foreach="payments_journals" t-as="payment_journal">
                             <tr>
                                 <td style="border: none;">
-                                    <span t-esc="payment_journal['journal_id'][1]"/>
+                                    <span t-esc="get_journal_label(payment_journal['journal_id'][0])"/>
                                 </td>
                                 <td align="right" style="border: none;">
                                     <span t-esc="payment_journal['amount']"
@@ -304,7 +304,7 @@
                          <t t-foreach="refund_payments_journals" t-as="refund_payment_journal">
                             <tr>
                                 <td style="border: none;">
-                                    <span t-esc="refund_payment_journal['journal_id'][1]"/>
+                                    <span t-esc="refund_get_journal_label(payment_journal['journal_id'][0])"/>
                                 </td>
                                 <td align="right" style="border: none;">
                                     <span>- </span>
