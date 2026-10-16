@@ -15,6 +15,17 @@
         </field>
     </record>
 
+    <record id="view_account_payment_tree_delivery_zone" model="ir.ui.view">
+        <field name="name">account.payment.list.delivery.zone</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="delivery_zone_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
     <!-- 13.0: view_account_payment_invoice_form hereda de view_account_payment_form (mode primary): el campo le llega por herencia -->
 
 </odoo>
