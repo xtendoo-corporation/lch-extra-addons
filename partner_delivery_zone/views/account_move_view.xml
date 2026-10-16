@@ -13,4 +13,15 @@
         </field>
     </record>
 
+    <record id="account_move_list_delivery_zone" model="ir.ui.view">
+        <field name="name">account.move.list.delivery.zone</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="(//field[@name='invoice_partner_display_name'])[last()]" position="after">
+                <field name="delivery_zone_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
