@@ -34,7 +34,9 @@
         'views/invoice/report_invoice_bluetooth.xml',
         #payment
         'views/payment/report_payment_receipt_bluetooth.xml',
-        'views/payment/report_payment_receipt.xml'
+        'views/payment/report_payment_receipt.xml',
+        # ocultar del menu Imprimir lo que v12 no tenia
+        'data/hide_print_actions.xml'
     ],
     'demo': [],
     'installable': True,

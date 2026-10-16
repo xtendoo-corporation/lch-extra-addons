@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Se ejecuta en cada actualizacion del modulo (tambien con -u all), despues de los modulos de los que depende -->
+    <function model="ir.actions.report" name="_lch_hide_print_actions"/>
+</odoo>
