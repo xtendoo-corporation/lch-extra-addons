@@ -127,14 +127,7 @@
 
                         <!-- FIn fecha del pago -->
 
-                        <!-- comercial  -->
-
-                        <div>
-                            <span style="display:block;width:100%;font-weight:bolder;">Comercial:</span>
-                            <span t-field="inv.user_id"/>
-                        </div>
-
-                        <!-- Fin comercial -->
+                        
 
                         <!-- Cliente -->
 
@@ -251,14 +244,7 @@
 
                     <!-- Fin resumen del pago -->
 
-                    <!-- Firma del comercial -->
-
-                   <div style="height:200px;width:100%;border:2px solid black;display:block;margin-top:20px;">
-                        <span style="text-align:left!important;display:block;width:1005;font-size:1.1em;margin-left:10px;">Firma del Comercial:</span>
-                        <img t-attf-src="data:image/*;base64,{{inv.user_id.digital_signature}}"/>
-                    </div>
-
-                    <!-- Fin firma del comercial -->
+                    
 
                 </t>
 
