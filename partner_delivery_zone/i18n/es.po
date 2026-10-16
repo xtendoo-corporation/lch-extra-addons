@@ -134,7 +134,7 @@ msgstr "Ruta de Entrega"
 
 #. module: partner_delivery_zone
 #: model:ir.actions.act_window,name:partner_delivery_zone.partner_delivery_zone_action
-#: model:ir.model.fields,field_description:partner_delivery_zone.field_account_invoice__delivery_zone_id
+#: model:ir.model.fields,field_description:partner_delivery_zone.field_account_move__delivery_zone_id
 #: model:ir.model.fields,field_description:partner_delivery_zone.field_account_payment__delivery_zone_id
 #: model:ir.model.fields,field_description:partner_delivery_zone.field_delivery_zone_partner_line__delivery_zone_id
 #: model:ir.model.fields,field_description:partner_delivery_zone.field_partner_delivery_zone__sale_order_ids
