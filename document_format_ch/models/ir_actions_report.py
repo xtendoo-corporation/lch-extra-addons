@@ -13,6 +13,10 @@ class IrActionsReport(models.Model):
         "sale_pdf_quote_builder.action_report_saleorder_raw",
         "stock.action_report_picking_packages",
         "stock.return_label_report",
+        # Pedido del usuario 2026-10-16 (aunque v12 los tenia): se ocultan tambien
+        "bi_print_journal_entries.journal_entry_report_id",  # Print Journal Entries (facturas)
+        "stock.action_report_picking",  # Operaciones de picking (albaranes)
+        "stock.action_print_labels",  # Etiquetas (albaranes; accion de servidor enlazada como informe)
     ]
 
     @api.model

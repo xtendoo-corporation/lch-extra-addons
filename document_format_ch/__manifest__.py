@@ -11,6 +11,7 @@
     'depends': [
         'base',
         'account',
+        'account_edi_ubl_cii',
         'sale',
         'web',
         'stock',
